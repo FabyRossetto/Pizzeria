@@ -4,7 +4,9 @@
  */
 package com.mycompany.pizzeria.comandas;
 
+import com.mycompany.pizzeria.controlGastos.Compras;
 import jakarta.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class ComandasControlador {
                 .map(comanda -> ResponseEntity.ok(comanda))
                 .orElse(ResponseEntity.notFound().build());
     }
+    
+    
 
     @GetMapping
     public ResponseEntity<List<Comanda>> listar() {

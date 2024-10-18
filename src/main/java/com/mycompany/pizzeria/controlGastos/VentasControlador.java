@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,13 @@ public class VentasControlador {
         return vr.findById(id)
                 .map(venta -> ResponseEntity.ok(venta))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/fecha")
+    public ResponseEntity<List<Ventas>> obtenerPorFecha(@RequestParam LocalDate fecha) {
+
+        List<Ventas> ventasPorFecha = vr.findByFecha(fecha);
+        return ResponseEntity.ok(ventasPorFecha);
     }
 
     @GetMapping
