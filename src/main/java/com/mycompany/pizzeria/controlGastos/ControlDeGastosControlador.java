@@ -18,17 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/control")
 public class ControlDeGastosControlador {
-   
 
     @Autowired
     private ControlDeGastosService cs;
 
-    
     @GetMapping("/diaria")
     public ResponseEntity<Double> obtenerGananciaDiaria(@RequestParam("fecha") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fecha) {
         double ganancia = cs.calcularGananciaDiaria(fecha);
         return ResponseEntity.ok(ganancia);
     }
 }
+
 
 

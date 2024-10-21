@@ -5,15 +5,14 @@
 package com.mycompany.pizzeria.controlGastos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class ControlDeGastosService {
- 
 
     @Autowired
     private VentasRepository ventasRepository;
@@ -21,31 +20,34 @@ public class ControlDeGastosService {
     @Autowired
     private ComprasRepository comprasRepository;
 
-    // Método para calcular la ganancia de un día específico
+    // Método para calcular la ganancia de un "día laboral"
     public double calcularGananciaDiaria(LocalDate fecha) {
-        // Obtener todas las ventas del día
-        List<Ventas> ventasDelDia = ventasRepository.findByFecha(fecha);
+        // Definir el inicio y fin del día laboral
+        LocalDateTime inicioDiaLaboral = fecha.atTime(8, 0); // 08:00 AM del día
+        LocalDateTime finDiaLaboral = fecha.plusDays(1).atTime(3, 30); // 03:30 AM del día siguiente
         
-        // Obtener todas las compras del día
-        List<Compras> comprasDelDia = comprasRepository.findByFecha(fecha);
+        // Obtener todas las ventas del rango
+        List<Ventas> ventasDelDia = ventasRepository.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
+        
+        // Obtener todas las compras del rango
+        List<Compras> comprasDelDia = comprasRepository.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
 
         // Sumar el total de ventas 
         double totalVentas = 0;
         for (Ventas venta : ventasDelDia) {
             totalVentas += venta.getMonto();
-            System.out.println("entra al for de ventas");
         }
- 
+
         // Sumar el total de compras 
         double totalCompras = 0;
         for (Compras compra : comprasDelDia) {
             totalCompras += compra.getMonto();
-            System.out.println("entra al for de compras");
         }
 
         // Calcular la ganancia: total de ventas - total de compras
         return totalVentas - totalCompras;
     }
 }
+
 
 

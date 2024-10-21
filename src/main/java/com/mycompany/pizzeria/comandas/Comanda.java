@@ -46,15 +46,15 @@ public class Comanda {
     public Comanda() {
     }
 
-    public Comanda(Long id, String pedido, int mesa, String mozo, Estado estado, Double precioFinal, String comentario, LocalDate fechaCreacion) {
-        this.id = id;
+    public Comanda( String pedido, int mesa, String mozo, Estado estado, Double precioFinal, String comentario) {
+        
         this.pedido = pedido;
         this.mesa = mesa;
         this.mozo = mozo;
         this.estado = estado;
         this.precioFinal = precioFinal;
         this.comentario = comentario;
-        this.fechaCreacion = fechaCreacion;
+       
     }
 
     
@@ -121,13 +121,5 @@ public class Comanda {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-
-    public void setFechaCreacion(LocalDate fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    
-   
-    
-    
+  
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,13 @@ public class VentasControlador {
     @GetMapping("/fecha")
     public ResponseEntity<List<Ventas>> obtenerPorFecha(@RequestParam LocalDate fecha) {
 
-        List<Ventas> ventasPorFecha = vr.findByFecha(fecha);
+        // Definir el inicio y fin del día laboral
+        LocalDateTime inicioDiaLaboral = fecha.atTime(8, 0); // 08:00 AM del día seleccionado
+        LocalDateTime finDiaLaboral = fecha.plusDays(1).atTime(3, 30); // 03:30 AM del día siguiente
+
+        // Obtener las ventas dentro del rango
+        List<Ventas> ventasPorFecha = vr.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
+
         return ResponseEntity.ok(ventasPorFecha);
     }
 
@@ -61,9 +68,6 @@ public class VentasControlador {
                     }
                     if (ventaActualizada.getMonto() != venta.getMonto()) {
                         venta.setMonto(ventaActualizada.getMonto());
-                    }
-                    if (!ventaActualizada.getFecha().equals(venta.getFecha())) {
-                        venta.setFecha(ventaActualizada.getFecha());
                     }
                     Ventas ventaGuardada = vr.save(venta);
                     return ResponseEntity.ok(ventaGuardada);

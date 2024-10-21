@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -39,11 +40,18 @@ public class ComprasControlador {
     }
 
     @GetMapping("/fecha")
-    public ResponseEntity<List<Compras>> obtenerPorFecha(@RequestParam LocalDate fecha) {
+public ResponseEntity<List<Compras>> obtenerPorFecha(@RequestParam LocalDate fecha) {
 
-        List<Compras> comprasPorFecha = cr.findByFecha(fecha);
-        return ResponseEntity.ok(comprasPorFecha);
-    }
+    // Definir el inicio y fin del día laboral
+    LocalDateTime inicioDiaLaboral = fecha.atTime(8, 0); // 08:00 AM del día seleccionado
+    LocalDateTime finDiaLaboral = fecha.plusDays(1).atTime(3, 30); // 03:30 AM del día siguiente
+
+    // Obtener las compras dentro del rango
+    List<Compras> comprasPorFecha = cr.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
+
+    return ResponseEntity.ok(comprasPorFecha);
+}
+
 
     @GetMapping
     public ResponseEntity<List<Compras>> listarCompras() {
@@ -62,9 +70,7 @@ public class ComprasControlador {
                     if (compraActualizada.getMonto() != compra.getMonto()) {
                         compra.setMonto(compraActualizada.getMonto());
                     }
-                    if (!compraActualizada.getFecha().equals(compra.getFecha())) {
-                        compra.setFecha(compraActualizada.getFecha());
-                    }
+                    
                     if (!compraActualizada.getResponsable().equals(compra.getResponsable())) {
                         compra.setResponsable(compraActualizada.getResponsable());
                     }

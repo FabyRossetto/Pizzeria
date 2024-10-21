@@ -13,6 +13,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,37 +21,35 @@ import org.hibernate.annotations.CreationTimestamp;
  *
  * @author Faby
  */
-
 @Entity
 public class Ventas {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    
+
     @NotNull
     double monto;
-    
+
     @NotNull
     String descripcion;
-    
+
     @CreationTimestamp
-    private LocalDate fecha; 
+    private LocalDateTime fecha;
 
     public Ventas() {
     }
 
-    public Ventas(Long id, double monto, String descripcion, LocalDate fecha) {
-        this.id = id;
+    public Ventas(double monto, String descripcion) {
+
         this.monto = monto;
         this.descripcion = descripcion;
-        this.fecha = fecha;
+
     }
 
     public Long getId() {
         return id;
     }
-
-    
 
     public String getDescripcion() {
         return descripcion;
@@ -60,7 +59,7 @@ public class Ventas {
         return monto;
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
@@ -68,13 +67,8 @@ public class Ventas {
         this.descripcion = descripcion;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
     public void setMonto(double monto) {
         this.monto = monto;
     }
-    
-    
+
 }

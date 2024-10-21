@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,7 +34,7 @@ public class Compras {
     double monto;
     
     @CreationTimestamp
-    private LocalDate fecha; 
+    private LocalDateTime fecha;  
     
     @NotNull
     String responsable;
@@ -41,11 +42,10 @@ public class Compras {
     public Compras() {
     }
 
-    public Compras(Long id, String descripcion, double monto, LocalDate fecha, String responsable) {
-        this.id = id;
+    public Compras( String descripcion, double monto, String responsable) {
+        
         this.descripcion = descripcion;
         this.monto = monto;
-        this.fecha = fecha;
         this.responsable = responsable;
     }
 
@@ -63,7 +63,7 @@ public class Compras {
         return monto;
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
@@ -82,11 +82,5 @@ public class Compras {
     public void setResponsable(String responsable) {
         this.responsable = responsable;
     }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-    
-    
-    
+  
 }
