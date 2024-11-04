@@ -6,10 +6,13 @@ package com.mycompany.pizzeria.comandas;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 
@@ -33,21 +36,33 @@ public class Comanda {
     @Column(nullable = false)
     String mozo;
     
+    @Enumerated(EnumType.STRING)
     Estado estado;
     
     @Column(nullable = false)
     Double precioFinal;
     
     String comentario;
+    
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDate fechaCreacion;
-
+    private LocalDateTime fechaCreacion;
     public Comanda() {
-    }
-
-    public Comanda( String pedido, int mesa, String mozo, Estado estado, Double precioFinal, String comentario) {
         
+    }
+ // Constructor para creación sin id
+    public Comanda(String pedido, int mesa, String camarero, Estado estado, double precio, String comentario) {
+        this.pedido = pedido;
+        this.mesa = mesa;
+        this.mozo = camarero;
+        this.estado = estado;
+        this.precioFinal = precio;
+        this.comentario = comentario;
+    }
+    
+    //const para edicion
+    public Comanda( Long id,String pedido, int mesa, String mozo, Estado estado, Double precioFinal, String comentario) {
+        this.id=id;
         this.pedido = pedido;
         this.mesa = mesa;
         this.mozo = mozo;
@@ -93,7 +108,7 @@ public class Comanda {
         return comentario;
     }
 
-    public LocalDate getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 

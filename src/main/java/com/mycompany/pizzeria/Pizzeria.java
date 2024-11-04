@@ -4,7 +4,10 @@
 
 package com.mycompany.pizzeria;
 
+import GUI.Principal;
+import java.awt.BorderLayout;
 import java.io.File;
+import javax.swing.JFrame;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +29,17 @@ public class Pizzeria {
 
         // Inicia la aplicación Spring Boot
         SpringApplication.run(Pizzeria.class, args);
+        // Abre la ventana de Principal en un nuevo hilo
+        java.awt.EventQueue.invokeLater(() -> {
+            JFrame frame = new JFrame("Pizzeria"); // Crea un JFrame con título
+            frame.setLayout(new BorderLayout()); // Asegura que se usa BorderLayout para el JFrame
+            Principal ppal = new Principal(frame); // Pasa el JFrame al constructor de Principal
+            frame.add(ppal, BorderLayout.CENTER); // Añade el JPanel Principal al centro
+            frame.setSize(1123, 755); 
+            frame.setLocationRelativeTo(null); // Esto lo centra en la pantalla
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+            frame.setVisible(true); // Muestra la ventana
+        });
     }
 
     // Método para asegurar que el directorio 'data/db' existe
