@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -25,13 +27,16 @@ import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
@@ -59,6 +64,10 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         JTable table = new JTable(tabla);
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
+        
+        // Configurar InputMap y ActionMap para Enter
+        setupEnterKeyAction();
+        
     }
 
     private void setupBuscarButton() {
@@ -69,6 +78,7 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
                 buscarComandasPorEstado();
             }
         });
+        
         atras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -76,6 +86,18 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
             }
         });
     }
+    
+    private void setupEnterKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
+        this.getActionMap().put("buscarComandas", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarComandasPorEstado();
+            }
+        });
+    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

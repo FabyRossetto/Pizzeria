@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @RestController
 @RequestMapping("/ventas")
@@ -40,16 +41,10 @@ public class VentasControlador {
     }
 
     @GetMapping("/fecha")
-    public ResponseEntity<List<Ventas>> obtenerPorFecha(@RequestParam LocalDate fecha) {
-
-        // Definir el inicio y fin del día laboral
-        LocalDateTime inicioDiaLaboral = fecha.atTime(8, 0); // 08:00 AM del día seleccionado
-        LocalDateTime finDiaLaboral = fecha.plusDays(1).atTime(3, 30); // 03:30 AM del día siguiente
-
-        // Obtener las ventas dentro del rango
-        List<Ventas> ventasPorFecha = vr.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
-
-        return ResponseEntity.ok(ventasPorFecha);
+    public List<Ventas> listarVentasPorFecha(@RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fecha) {
+        LocalDateTime inicioDelDia = fecha.atTime(8, 0);      // 8:00 am del día seleccionado
+        LocalDateTime finDelDia = fecha.plusDays(1).atTime(3, 0); // 3:00 am del día siguiente
+        return vr.findAllByFechaBetween(inicioDelDia, finDelDia);
     }
 
     @GetMapping

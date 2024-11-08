@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ComprasRepository extends JpaRepository<Compras, Long> {
     
-    List<Compras> findByFechaBetween(LocalDateTime inicio, LocalDateTime fin);
+   public List<Compras> findAllByFechaBetween(LocalDateTime inicioDiaLaboral, LocalDateTime finDiaLaboral);
 }
     
 

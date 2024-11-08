@@ -354,9 +354,9 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
     
     private void buscarComanda() {
         try{
-        EditarComanda editar = new EditarComanda(parentFrame);
+        BuscarUnaComanda buscar = new BuscarUnaComanda(parentFrame);
         parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-        parentFrame.getContentPane().add(editar);  // Añade el nuevo JPanel 
+        parentFrame.getContentPane().add(buscar);  // Añade el nuevo JPanel 
         parentFrame.setSize(500, 400);  // Tamaño GRANDE
         parentFrame.setLocationRelativeTo(null);
         parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI

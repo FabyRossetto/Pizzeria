@@ -6,6 +6,8 @@ package com.mycompany.pizzeria.controlGastos;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,13 +38,13 @@ public class Compras {
     @CreationTimestamp
     private LocalDateTime fecha;  
     
-    @NotNull
-    String responsable;
+    @Enumerated(EnumType.STRING)
+    ResponsableDeCompra responsable;
 
     public Compras() {
     }
 
-    public Compras( String descripcion, double monto, String responsable) {
+    public Compras( String descripcion, double monto, ResponsableDeCompra responsable) {
         
         this.descripcion = descripcion;
         this.monto = monto;
@@ -67,7 +69,7 @@ public class Compras {
         return fecha;
     }
 
-    public String getResponsable() {
+    public ResponsableDeCompra getResponsable() {
         return responsable;
     }
 
@@ -79,7 +81,7 @@ public class Compras {
         this.monto = monto;
     }
 
-    public void setResponsable(String responsable) {
+    public void setResponsable(ResponsableDeCompra responsable) {
         this.responsable = responsable;
     }
   

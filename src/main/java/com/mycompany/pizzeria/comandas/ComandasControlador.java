@@ -43,11 +43,13 @@ public class ComandasControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Comanda> obtenerPorId(@RequestParam Long id) {
+    public ResponseEntity<Comanda> obtenerPorId(@PathVariable Long id) {
         return cr.findById(id)
                 .map(comanda -> ResponseEntity.ok(comanda))
                 .orElse(ResponseEntity.notFound().build());
     }
+    
+    
 
     @GetMapping
     public ResponseEntity<List<Comanda>> obtenerTodasLasComandas() {

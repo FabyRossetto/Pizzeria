@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import GUI.ControlDeGastos.Opciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -112,7 +113,7 @@ public class Principal extends javax.swing.JPanel {
 
     // Método para mostrar el panel Opciones
     public void mostrarOpciones(){
-        Opciones gastos = new Opciones();
+        Opciones gastos = new Opciones(parentFrame);
         parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
         parentFrame.getContentPane().add(gastos);  // Añade el nuevo JPanel
         parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI

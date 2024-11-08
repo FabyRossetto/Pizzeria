@@ -27,10 +27,10 @@ public class ControlDeGastosService {
         LocalDateTime finDiaLaboral = fecha.plusDays(1).atTime(3, 30); // 03:30 AM del día siguiente
         
         // Obtener todas las ventas del rango
-        List<Ventas> ventasDelDia = ventasRepository.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
+        List<Ventas> ventasDelDia = ventasRepository.findAllByFechaBetween(inicioDiaLaboral, finDiaLaboral);
         
         // Obtener todas las compras del rango
-        List<Compras> comprasDelDia = comprasRepository.findByFechaBetween(inicioDiaLaboral, finDiaLaboral);
+        List<Compras> comprasDelDia = comprasRepository.findAllByFechaBetween(inicioDiaLaboral, finDiaLaboral);
 
         // Sumar el total de ventas 
         double totalVentas = 0;

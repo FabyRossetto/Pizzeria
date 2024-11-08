@@ -6,12 +6,16 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -25,6 +29,9 @@ public class BorrarComanda extends javax.swing.JPanel {
         this.parentFrame = parentFrame;
         initComponents();
         setupActionListeners();
+        
+        // Configurar InputMap y ActionMap para Enter
+        setupEnterKeyAction();
     }
 
     private void setupActionListeners() {
@@ -41,6 +48,16 @@ public class BorrarComanda extends javax.swing.JPanel {
             }
         });
     }
+    private void setupEnterKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
+        this.getActionMap().put("buscarComandas", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                borrarComanda();
+            }
+        });
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,12 +170,15 @@ public class BorrarComanda extends javax.swing.JPanel {
         }
     }
 
-// Método para volver a la pantalla anterior (OpcionesComanda)
-    private void volverAtras() {
-        parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(new ListarTodasLasComandas(parentFrame)); // Cambia a la pantalla de OpcionesComanda
-        parentFrame.getContentPane().revalidate();
-        parentFrame.getContentPane().repaint();
+private void volverAtras() {
+        ListarTodasLasComandas volver = new ListarTodasLasComandas(parentFrame);
+        parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
+        parentFrame.getContentPane().add(volver);  // Añade el nuevo JPanel (OpcionesComanda)
+        parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
+        parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
+        parentFrame.pack();
+        parentFrame.setLocationRelativeTo(null);
+        System.out.println("atras");
     }
 
 }

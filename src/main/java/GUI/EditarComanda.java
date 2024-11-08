@@ -357,6 +357,8 @@ public class EditarComanda extends javax.swing.JPanel {
         try {
             // Obtener el ID de la comanda
             Long id = Long.valueOf(Id.getText());
+            
+            System.out.println("id: " + id);
 
             // Recuperar la comanda original desde el servidor antes de editarla
             // (Este paso es importante para poder mantener los valores originales si algún campo está vacío)
@@ -402,7 +404,7 @@ public class EditarComanda extends javax.swing.JPanel {
     private Comanda obtenerComandaOriginal(Long id) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://localhost:8080/comandas/" + id))
+                .uri(new URI("http://localhost:8080/comandas/" + id ))
                 .header("Content-Type", "application/json")
                 .GET()
                 .build();

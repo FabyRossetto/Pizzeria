@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -15,9 +16,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,11 +35,20 @@ import org.json.JSONObject;
 public class BuscarUnaComanda extends javax.swing.JPanel {
 
     private JFrame parentFrame;
+    private DefaultTableModel tabla;
 
     public BuscarUnaComanda(JFrame parentFrame) {
         this.parentFrame = parentFrame;
         initComponents();
         setupActionListeners();
+        
+        // Configurar la tabla solo una vez
+        tabla = new DefaultTableModel(new Object[]{"ID", "Pedido", "Mesa", "Mozo", "Estado", "Precio Final", "Comentario", "Fecha Creación"}, 0);
+        JTable table = new JTable(tabla);
+        JScrollPane scrollPane = new JScrollPane(table);
+        this.add(scrollPane);
+        // Configurar InputMap y ActionMap para Enter
+        setupEnterKeyAction();
     }
 
     private void setupActionListeners() {
@@ -49,6 +65,16 @@ public class BuscarUnaComanda extends javax.swing.JPanel {
             }
         });
     }
+     private void setupEnterKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
+        this.getActionMap().put("buscarComandas", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarComanda();
+            }
+        });
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,59 +158,51 @@ public class BuscarUnaComanda extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    private void buscarComanda() {
-        // Obtener el ID de la comanda a eliminar 
-        Long comandaId = Long.valueOf(id.getText());
+   private void buscarComanda() {
+    // Obtener el ID de la comanda
+    Long comandaId = Long.valueOf(id.getText());
 
-        // Enviar una solicitud HTTP GET al servidor 
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:8080/comandas/" + comandaId))
-                    .header("Accept", "application/json")
-                    .GET()
-                    .build();
+    // Enviar una solicitud HTTP GET al servidor
+    try {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI("http://localhost:8080/comandas/" + comandaId))
+                .header("Accept", "application/json")
+                .GET()
+                .build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() == HttpURLConnection.HTTP_OK) {
-                JSONArray contentArray = new JSONArray(response.body());
+        if (response.statusCode() == HttpURLConnection.HTTP_OK) {
+            JSONObject comanda = new JSONObject(response.body());
 
-                if (contentArray.length() > 0) {
-                    // Construye un mensaje con la información de todas las comandas encontradas
-                    StringBuilder mensaje = new StringBuilder("La comanda buscada es : " );
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            // Construye un mensaje con la información de la comanda encontrada
+            StringBuilder mensaje = new StringBuilder("La comanda buscada es:\n");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-                    for (int i = 0; i < contentArray.length(); i++) {
-                        JSONObject comanda = contentArray.getJSONObject(i);
+            LocalDateTime fechaCreacion = LocalDateTime.parse(comanda.getString("fechaCreacion"));
+            String fechaFormateada = fechaCreacion.format(formatter);
 
-                        // Parseamos y formateamos la fecha de creación
-                        LocalDateTime fechaCreacion = LocalDateTime.parse(comanda.getString("fechaCreacion"));
-                        String fechaFormateada = fechaCreacion.format(formatter);
+            mensaje.append("ID: ").append(comanda.getLong("id")).append("\n")
+                   .append("Pedido: ").append(comanda.getString("pedido")).append("\n")
+                   .append("Mesa: ").append(comanda.getInt("mesa")).append("\n")
+                   .append("Mozo: ").append(comanda.getString("mozo")).append("\n")
+                   .append("Estado: ").append(comanda.getString("estado")).append("\n")
+                   .append("Precio Final: $").append(comanda.getDouble("precioFinal")).append("\n")
+                   .append("Comentario: ").append(comanda.optString("comentario", "")).append("\n")
+                   .append("Fecha Creación: ").append(fechaFormateada).append("\n\n");
 
-                        mensaje.append("ID: ").append(comanda.getLong("id")).append("\n")
-                                .append("Pedido: ").append(comanda.getString("pedido")).append("\n")
-                                .append("Mesa: ").append(comanda.getInt("mesa")).append("\n")
-                                .append("Mozo: ").append(comanda.getString("mozo")).append("\n")
-                                .append("Estado: ").append(comanda.getString("estado")).append("\n")
-                                .append("Precio Final: $").append(comanda.getDouble("precioFinal")).append("\n")
-                                .append("Comentario: ").append(comanda.optString("comentario", "")).append("\n")
-                                .append("Fecha Creación: ").append(fechaFormateada).append("\n\n");
-                    }
-
-                    // Muestra el mensaje en un JOptionPane
-                    mostrarMensaje(mensaje.toString(), "Comandas", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    mostrarMensaje("No se encontraron comandas para el id" + comandaId, "Información", JOptionPane.INFORMATION_MESSAGE);
-                }
-
-            } else {
-                mostrarMensaje("Error al cargar comandas: " + response.statusCode(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            mostrarMensaje("Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // Muestra el mensaje en un JOptionPane
+            mostrarMensaje(mensaje.toString(), "Comanda", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            mostrarMensaje("Error al cargar la comanda: " + response.statusCode(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (Exception e) {
+        mostrarMensaje("Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(" " + e.getMessage());
     }
+}
+
 
     private void mostrarMensaje(String mensaje, String titulo, int messageType) {
         UIManager.put("OptionPane.background", new Color(210, 180, 111));
