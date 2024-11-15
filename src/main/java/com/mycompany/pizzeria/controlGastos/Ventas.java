@@ -40,8 +40,8 @@ public class Ventas {
     public Ventas() {
     }
 
-    public Ventas(double monto, String descripcion) {
-
+    public Ventas(Long id, double monto, String descripcion) {
+        this.id = id;
         this.monto = monto;
         this.descripcion = descripcion;
 

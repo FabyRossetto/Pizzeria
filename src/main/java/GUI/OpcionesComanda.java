@@ -4,9 +4,21 @@
  */
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.net.URI;
+import javax.swing.AbstractAction;
+
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -18,36 +30,28 @@ public class OpcionesComanda extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buscar = new javax.swing.JPopupMenu();
         GenerarComanda = new javax.swing.JButton();
-        BuscarPorEstado = new javax.swing.JButton();
         verComandas = new javax.swing.JButton();
-        BuscarPorFecha = new javax.swing.JButton();
-        BuscarComandaPorMesa = new javax.swing.JButton();
-        BuscarPorMozo = new javax.swing.JButton();
         atras = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        buscarButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(97, 97, 97));
         setToolTipText("");
-        setPreferredSize(new java.awt.Dimension(1123, 755));
+        setPreferredSize(new java.awt.Dimension(1300, 800));
 
         GenerarComanda.setBackground(new java.awt.Color(210, 180, 111));
-        GenerarComanda.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        GenerarComanda.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         GenerarComanda.setForeground(new java.awt.Color(255, 255, 255));
-        GenerarComanda.setText("GENERAR COMANDA");
+        GenerarComanda.setText("NUEVA COMANDA");
         GenerarComanda.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
         GenerarComanda.setFocusPainted(false);
 
-        BuscarPorEstado.setBackground(new java.awt.Color(210, 180, 111));
-        BuscarPorEstado.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        BuscarPorEstado.setForeground(new java.awt.Color(255, 255, 255));
-        BuscarPorEstado.setText("BUSCAR COMANDA POR ESTADO");
-        BuscarPorEstado.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-        BuscarPorEstado.setFocusPainted(false);
-
         verComandas.setBackground(new java.awt.Color(210, 180, 111));
-        verComandas.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        verComandas.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         verComandas.setForeground(new java.awt.Color(255, 255, 255));
-        verComandas.setText("VER TODAS LAS COMANDAS");
+        verComandas.setText("VER TODAS ");
         verComandas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
         verComandas.setFocusPainted(false);
         verComandas.addActionListener(new java.awt.event.ActionListener() {
@@ -56,80 +60,68 @@ public class OpcionesComanda extends javax.swing.JPanel {
             }
         });
 
-        BuscarPorFecha.setBackground(new java.awt.Color(210, 180, 111));
-        BuscarPorFecha.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        BuscarPorFecha.setForeground(new java.awt.Color(255, 255, 255));
-        BuscarPorFecha.setText("BUSCAR COMANDA POR FECHA");
-        BuscarPorFecha.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-        BuscarPorFecha.setFocusPainted(false);
-
-        BuscarComandaPorMesa.setBackground(new java.awt.Color(210, 180, 111));
-        BuscarComandaPorMesa.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        BuscarComandaPorMesa.setForeground(new java.awt.Color(255, 255, 255));
-        BuscarComandaPorMesa.setText("BUSCAR COMANDA POR MESA");
-        BuscarComandaPorMesa.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-        BuscarComandaPorMesa.setFocusPainted(false);
-
-        BuscarPorMozo.setBackground(new java.awt.Color(210, 180, 111));
-        BuscarPorMozo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        BuscarPorMozo.setForeground(new java.awt.Color(255, 255, 255));
-        BuscarPorMozo.setText("BUSCAR COMANDA POR MOZO");
-        BuscarPorMozo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-        BuscarPorMozo.setFocusPainted(false);
-
         atras.setBackground(new java.awt.Color(210, 180, 111));
         atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-left-50.png"))); // NOI18N
         atras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         atras.setFocusPainted(false);
 
+        jLabel3.setBackground(new java.awt.Color(57, 57, 57));
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        buscarButton.setBackground(new java.awt.Color(210, 180, 111));
+        buscarButton.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        buscarButton.setForeground(new java.awt.Color(255, 255, 255));
+        buscarButton.setText("BUSCAR COMANDA");
+        buscarButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        buscarButton.setFocusPainted(false);
+        buscarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BuscarPorMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BuscarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BuscarPorEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BuscarComandaPorMesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(112, 112, 112))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(atras)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(161, 161, 161)
+                        .addComponent(buscarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(atras)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(243, 243, 243)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GenerarComanda, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(buscarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verComandas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(BuscarComandaPorMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(BuscarPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
-                .addComponent(BuscarPorMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(BuscarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -137,24 +129,42 @@ public class OpcionesComanda extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_verComandasActionPerformed
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+
+        // Abre el enlace en el navegador predeterminado al hacer clic
+        try {
+            Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/fabyrossetto/"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BuscarComandaPorMesa;
-    private javax.swing.JButton BuscarPorEstado;
-    private javax.swing.JButton BuscarPorFecha;
-    private javax.swing.JButton BuscarPorMozo;
     private javax.swing.JButton GenerarComanda;
     private javax.swing.JButton atras;
+    private javax.swing.JPopupMenu buscar;
+    private javax.swing.JButton buscarButton;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton verComandas;
     // End of variables declaration//GEN-END:variables
 
     private JFrame parentFrame;
+    static Color color = new Color(210, 180, 111);
 
     // Constructor que toma un JFrame como referencia
     public OpcionesComanda(JFrame parentFrame) {
         this.parentFrame = parentFrame;  // Mantiene una referencia al JFrame principal
         initComponents();
         setupActionListeners();
+        setupEscapeKeyAction();
+        setupPopupMenu();
+
     }
 
     // Inicialización de los ActionListeners
@@ -165,30 +175,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
                 generarComanda();
             }
         });
-        BuscarComandaPorMesa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuscarPorMesa();
-            }
-        });
-        BuscarPorEstado.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuscarPorEstado();
-            }
-        });
-        BuscarPorFecha.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuscarPorFecha();
-            }
-        });
-        BuscarPorMozo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BuscarPorMozo();
-            }
-        });
+     
         verComandas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -203,35 +190,102 @@ public class OpcionesComanda extends javax.swing.JPanel {
         });
     }
 
+    private void setupEscapeKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "volverAtras");
+        this.getActionMap().put("volverAtras", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                volver();
+            }
+        });
+    }
+
     private void generarComanda() {
         GenerarComanda comanda = new GenerarComanda(parentFrame);
         parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(comanda);
 
-        parentFrame.setSize(1300, 800);  // Tamaño grande
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        comanda.setPreferredSize(new Dimension(1300, 800));
+        parentFrame.add(comanda, BorderLayout.CENTER);
+        parentFrame.pack();
         parentFrame.setLocationRelativeTo(null);  // Centra la ventana
         parentFrame.revalidate();
         parentFrame.repaint();
         System.out.println("Pantalla de crear comanda");
     }
 
-    public void BuscarPorMesa() {
-        BuscarComandaPorMesa mesa = new BuscarComandaPorMesa(parentFrame);
-        parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(mesa);
+    //  método para configurar el JPopupMenu
+    private void setupPopupMenu() {
 
-        parentFrame.setSize(500, 400);  // Tamaño pequeño
-        parentFrame.setLocationRelativeTo(null);
-        parentFrame.revalidate();
-        parentFrame.repaint();
-        System.out.println("Pantalla de buscar comanda por mesa");
+        // Crear opciones para el menú emergente
+        JMenuItem buscarPorMesa = new JMenuItem("Buscar por Mesa");
+        buscarPorMesa.setOpaque(true);
+        buscarPorMesa.setBackground(color);
+        buscarPorMesa.setForeground(Color.WHITE);
+        JMenuItem buscarPorEstado = new JMenuItem("Buscar por Estado");
+        buscarPorEstado.setOpaque(true);
+        buscarPorEstado.setBackground(color);
+        buscarPorEstado.setForeground(Color.WHITE);
+        JMenuItem buscarPorMozo = new JMenuItem("Buscar por Mozo");
+        buscarPorMozo.setOpaque(true);
+        buscarPorMozo.setBackground(color);
+        buscarPorMozo.setForeground(Color.WHITE);
+        JMenuItem buscarPorFecha = new JMenuItem("Buscar por Fecha");
+        buscarPorFecha.setOpaque(true);
+        buscarPorFecha.setBackground(color);
+        buscarPorFecha.setForeground(Color.WHITE);
+
+        // Agregar los JMenuItem al JPopupMenu
+        buscar.add(buscarPorMesa);
+        buscar.add(buscarPorEstado);
+        buscar.add(buscarPorMozo);
+        buscar.add(buscarPorFecha);
+
+        // Asignar ActionListeners a cada opción del menú
+        buscarPorMesa.addActionListener(e -> BuscarPorMesa());
+        buscarPorEstado.addActionListener(e -> BuscarPorEstado());
+        buscarPorMozo.addActionListener(e -> BuscarPorMozo());
+        buscarPorFecha.addActionListener(e -> BuscarPorFecha());
+
+        // Mostrar el popup al hacer clic en el botón "Buscar"
+        buscarButton.addActionListener(e -> buscar.show(buscarButton, buscarButton.getWidth() / 2, buscarButton.getHeight() / 2));
+
     }
 
-    private void BuscarPorEstado() {
+    public void BuscarPorMesa() {
+    
+    BuscarComandaPorMesa mesa = new BuscarComandaPorMesa(parentFrame);
+
+    // Configura el tamaño del JFrame y sus componentes
+    parentFrame.getContentPane().removeAll();  // Limpia el contenido actual
+    parentFrame.setResizable(false);          // Evita que la ventana sea redimensionable
+
+    // Configuración explícita del tamaño
+    mesa.setPreferredSize(new Dimension(500, 400)); // Tamaño preferido del panel
+    parentFrame.add(mesa, BorderLayout.CENTER);     // Agrega el panel al JFrame
+
+   
+    parentFrame.setSize(500, 400);
+    parentFrame.setLocationRelativeTo(null);        // Centra la ventana en la pantalla
+    parentFrame.revalidate();                       // Actualiza el contenedor
+    parentFrame.repaint();                          // Redibuja el contenedor
+
+    System.out.println("Pantalla de buscar comanda por mesa");
+}
+
+
+    public void BuscarPorEstado() {
         BuscarComandaPorEstado estado = new BuscarComandaPorEstado(parentFrame);
         parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(estado);
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        estado.setPreferredSize(new Dimension(500, 400));
+        parentFrame.add(estado, BorderLayout.CENTER);
+        
         parentFrame.setSize(500, 400);
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
@@ -239,11 +293,14 @@ public class OpcionesComanda extends javax.swing.JPanel {
         System.out.println("Pantalla de buscar por estado");
     }
 
-    private void BuscarPorFecha() {
+    public void BuscarPorFecha() {
         ListarComandasPorFecha fecha = new ListarComandasPorFecha(parentFrame);
         parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(fecha);
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        fecha.setPreferredSize(new Dimension(500, 400));
+        parentFrame.add(fecha, BorderLayout.CENTER);
         parentFrame.setSize(500, 400);
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
@@ -251,34 +308,46 @@ public class OpcionesComanda extends javax.swing.JPanel {
         System.out.println("Pantalla buscar por fecha");
     }
 
-    private void BuscarPorMozo() {
+    public void BuscarPorMozo() {
         BuscarComandaPorMozo mozo = new BuscarComandaPorMozo(parentFrame);
         parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(mozo);
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
-        parentFrame.setSize(500, 400);
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        mozo.setPreferredSize(new Dimension(500, 400));
+        parentFrame.add(mozo, BorderLayout.CENTER);
+       parentFrame.setSize(500, 400);
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
         parentFrame.repaint();
         System.out.println("Pantalla de buscar por mozo");
     }
 
-    private void TodasLasComandas() {
+    public void TodasLasComandas() {
         ListarTodasLasComandas todas = new ListarTodasLasComandas(parentFrame);
         parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(todas);
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
-        parentFrame.setSize(1300, 800);
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        todas.setPreferredSize(new Dimension(1300, 800));
+        parentFrame.add(todas, BorderLayout.CENTER);
+        parentFrame.pack();
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
         parentFrame.repaint();
         System.out.println("Pantalla de listar todas las comandas");
     }
 
-    private void volver() {
+    public void volver() {
         Principal volver = new Principal(parentFrame);
         parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-        parentFrame.getContentPane().add(volver);  // Añade el nuevo JPanel (OpcionesComanda)
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+        
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        volver.setPreferredSize(new Dimension(1300, 800));
+        parentFrame.add(volver, BorderLayout.CENTER);
+        parentFrame.pack();
+        parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla
         parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
         parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
         System.out.println("atras");

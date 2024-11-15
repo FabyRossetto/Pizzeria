@@ -1,4 +1,4 @@
-  /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -11,36 +11,37 @@ import static com.mycompany.pizzeria.comandas.Estado.EN_PROCESO;
 import static com.mycompany.pizzeria.comandas.Estado.FINALIZADA;
 import static com.mycompany.pizzeria.comandas.Estado.PEDIDA;
 import static com.mycompany.pizzeria.comandas.Estado.PREPARADA;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
+
 import java.awt.event.KeyEvent;
-import java.io.IOException;
+
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
+
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 /**
@@ -50,24 +51,24 @@ import org.json.JSONObject;
 public class BuscarComandaPorEstado extends javax.swing.JPanel {
 
     private JFrame parentFrame;
-     private DefaultTableModel tabla;
-  
+    private DefaultTableModel tabla;
 
     public BuscarComandaPorEstado(JFrame parentFrame) {
         this.parentFrame = parentFrame;
         initComponents();
         inicializarRadioButtons();
         setupBuscarButton();
-        
+        setupEscapeKeyAction();
+
         // Configurar la tabla solo una vez
         tabla = new DefaultTableModel(new Object[]{"ID", "Pedido", "Mesa", "Mozo", "Estado", "Precio Final", "Comentario", "Fecha Creación"}, 0);
         JTable table = new JTable(tabla);
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
-        
+
         // Configurar InputMap y ActionMap para Enter
         setupEnterKeyAction();
-        
+
     }
 
     private void setupBuscarButton() {
@@ -78,7 +79,7 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
                 buscarComandasPorEstado();
             }
         });
-        
+
         atras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -86,7 +87,7 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void setupEnterKeyAction() {
         // Mapa de entradas y acciones para el panel actual
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
@@ -98,6 +99,16 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         });
     }
 
+    private void setupEscapeKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "volverAtras");
+        this.getActionMap().put("volverAtras", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                volverAtras();
+            }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -171,6 +182,11 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         finalizada.setForeground(new java.awt.Color(255, 255, 255));
         finalizada.setText("FINALIZADA");
         finalizada.setBorder(null);
+        finalizada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalizadaActionPerformed(evt);
+            }
+        });
 
         anulada.setBackground(new java.awt.Color(97, 97, 97));
         anulada.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -188,49 +204,64 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(anulada)
-                    .addComponent(finalizada)
-                    .addComponent(entregada)
-                    .addComponent(preparada)
-                    .addComponent(en_proceso)
-                    .addComponent(pedida))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(atras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Buscar)
-                .addGap(92, 92, 92))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(jLabel1)
-                .addContainerGap(112, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(atras)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(preparada)
+                                    .addComponent(pedida))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(84, 84, 84)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(finalizada)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(Buscar)
+                                                .addComponent(entregada))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(93, 93, 93)
+                                        .addComponent(anulada)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(en_proceso)
+                                .addGap(107, 215, Short.MAX_VALUE)))))
+                .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(45, 45, 45)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pedida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(en_proceso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(preparada)
-                        .addGap(18, 18, 18)
-                        .addComponent(entregada)
-                        .addGap(18, 18, 18)
-                        .addComponent(finalizada)
-                        .addGap(18, 18, 18)
-                        .addComponent(anulada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addComponent(entregada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pedida)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(en_proceso)
+                    .addComponent(finalizada))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(preparada))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(anulada)))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,6 +277,10 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pedidaActionPerformed
 
+    private void finalizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_finalizadaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;
@@ -259,11 +294,10 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
     private javax.swing.JRadioButton pedida;
     private javax.swing.JRadioButton preparada;
     // End of variables declaration//GEN-END:variables
-private javax.swing.JPanel panel;
 
     private void inicializarRadioButtons() {
         buttonGroup1 = new ButtonGroup();
-        
+
         buttonGroup1.add(anulada);
         buttonGroup1.add(entregada);
         buttonGroup1.add(en_proceso);
@@ -271,12 +305,10 @@ private javax.swing.JPanel panel;
         buttonGroup1.add(pedida);
         buttonGroup1.add(preparada);
 
-       
     }
 
 // Método para obtener el estado seleccionado y buscar comandas
     private void buscarComandasPorEstado() {
-        
 
         Estado estadoSeleccionado = null;
         if (anulada.isSelected()) {
@@ -341,6 +373,7 @@ private javax.swing.JPanel panel;
             mostrarMensaje("Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void mostrarMensaje(String mensaje, String titulo, int messageType) {
         UIManager.put("OptionPane.background", new Color(210, 180, 111));
         UIManager.put("Panel.background", new Color(97, 97, 97));
@@ -349,17 +382,21 @@ private javax.swing.JPanel panel;
         JOptionPane.showMessageDialog(parentFrame, mensaje, titulo, messageType);
     }
 
-     // Método para volver a la ventana anterior
+    // Método para volver a la ventana anterior
     private void volverAtras() {
         OpcionesComanda volver = new OpcionesComanda(parentFrame);
         parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-        parentFrame.getContentPane().add(volver);  // Añade el nuevo JPanel (OpcionesComanda)
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        volver.setPreferredSize(new Dimension(1300, 800));
+        parentFrame.add(volver, BorderLayout.CENTER);
+
         parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
         parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null);
         System.out.println("atras");
     }
-
 
 }

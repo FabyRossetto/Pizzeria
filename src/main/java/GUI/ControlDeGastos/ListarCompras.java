@@ -6,10 +6,14 @@ package GUI.ControlDeGastos;
 
 import com.mycompany.pizzeria.controlGastos.Compras;
 import com.mycompany.pizzeria.controlGastos.ResponsableDeCompra;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -23,8 +27,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
@@ -46,6 +53,8 @@ public class ListarCompras extends javax.swing.JPanel {
         configurarTabla();
         cargarCompras();
         setupActionListeners();
+        setupEnterKeyAction();
+        setupEscapeKeyAction();
     }
 
     @SuppressWarnings("unchecked")
@@ -60,10 +69,10 @@ public class ListarCompras extends javax.swing.JPanel {
         editar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         calendar = new com.toedter.calendar.JCalendar();
         atras = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
         setRequestFocusEnabled(false);
@@ -130,10 +139,6 @@ public class ListarCompras extends javax.swing.JPanel {
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-buscar-32.png"))); // NOI18N
         buscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButton4.setBackground(new java.awt.Color(210, 180, 111));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-left-50.png"))); // NOI18N
-        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jLabel2.setBackground(new java.awt.Color(97, 97, 97));
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -153,72 +158,93 @@ public class ListarCompras extends javax.swing.JPanel {
         atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-left-50.png"))); // NOI18N
         atras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel10.setBackground(new java.awt.Color(57, 57, 57));
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(atras)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(195, 195, 195))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(227, 227, 227))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(editar)
-                        .addGap(18, 18, 18)
-                        .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 183, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
+                        .addGap(364, 364, 364)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(43, 43, 43)
                         .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(buscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
-                .addContainerGap(66, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(atras)
-                .addGap(229, 229, 229)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(buscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(488, 488, 488)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(78, 78, 78)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(299, 299, 299)))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buscar)
+                            .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editar))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(58, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(buscar)
-                                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(48, 48, 48))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editarActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+
+        // Abre el enlace en el navegador predeterminado al hacer clic
+        try {
+            Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/fabyrossetto/"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -227,8 +253,8 @@ public class ListarCompras extends javax.swing.JPanel {
     private javax.swing.JButton buscar;
     private com.toedter.calendar.JCalendar calendar;
     private javax.swing.JButton editar;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
@@ -265,6 +291,27 @@ public class ListarCompras extends javax.swing.JPanel {
             }
         });
     }
+    
+     private void setupEnterKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
+        this.getActionMap().put("buscar", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarCompraPorFecha();
+            }
+        });
+    }
+    private void setupEscapeKeyAction() {
+    // Mapa de entradas y acciones para el panel actual
+    this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "volverAtras");
+    this.getActionMap().put("volverAtras", new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            atras();
+        }
+    });
+    }
 
     private void configurarTabla() {
         // Asignar el modelo de la tabla existente
@@ -273,10 +320,18 @@ public class ListarCompras extends javax.swing.JPanel {
 
     // Método para volver a la ventana anterior
     private void atras() {
-        parentFrame.getContentPane().removeAll();
-        parentFrame.getContentPane().add(new Opciones(parentFrame)); // Cambia según la ventana anterior
-        parentFrame.getContentPane().revalidate();
-        parentFrame.getContentPane().repaint();
+        Opciones volver = new Opciones(parentFrame);
+        parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
+        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        volver.setPreferredSize(new Dimension(1300, 800));
+        parentFrame.add(volver, BorderLayout.CENTER);
+        parentFrame.pack();
+        parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla
+        parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
+        parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
+        System.out.println("atras");
     }
 
     public ListarCompras(JFrame parentFrame, List<Compras> Filtradas) {
@@ -376,8 +431,12 @@ public class ListarCompras extends javax.swing.JPanel {
         try {
             BorrarCompra borrada = new BorrarCompra(parentFrame);
             parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-            parentFrame.getContentPane().add(borrada);  // Añade el nuevo JPanel 
-            parentFrame.setSize(500, 400);  // Tamaño pequeño
+            parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+            borrada.setPreferredSize(new Dimension(500, 400));
+            parentFrame.add(borrada, BorderLayout.CENTER);
+            parentFrame.setSize(500, 400);
             parentFrame.setLocationRelativeTo(null);
 
             parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
@@ -392,8 +451,12 @@ public class ListarCompras extends javax.swing.JPanel {
         try {
             EditarCompra editar = new EditarCompra(parentFrame);
             parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-            parentFrame.getContentPane().add(editar);  // Añade el nuevo JPanel 
-            parentFrame.setSize(1300, 800);  // Tamaño GRANDE
+            parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+            editar.setPreferredSize(new Dimension(1300, 800));
+            parentFrame.add(editar, BorderLayout.CENTER);
+            parentFrame.pack();
             parentFrame.setLocationRelativeTo(null);
             parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
             parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
@@ -425,35 +488,33 @@ public class ListarCompras extends javax.swing.JPanel {
 
             if (response.statusCode() == HttpURLConnection.HTTP_OK) {
                 JSONArray contentArray = new JSONArray(response.body());
-                // Limpia la tabla antes de añadir nuevas filas
+
+                // Limpiar la tabla antes de cargar los nuevos datos
                 tableModel.setRowCount(0);
 
                 if (contentArray.length() > 0) {
-                    // Construye un mensaje con la información de todas las comandas encontradas
-                    StringBuilder mensaje = new StringBuilder("Las compras del dia  " + formattedDate + ":\n\n");
+                    // Recorrer el JSON y añadir filas a la tabla
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
                     for (int i = 0; i < contentArray.length(); i++) {
                         JSONObject compra = contentArray.getJSONObject(i);
 
-                        // Parseamos y formateamos la fecha de creación
                         LocalDateTime fechaCreacion = LocalDateTime.parse(compra.getString("fecha"));
                         String fechaFormateada = fechaCreacion.format(formatter);
 
-                        mensaje.append("ID: ").append(compra.getLong("id")).append("\n")
-                                .append("Descripción: ").append(compra.getString("descripcion")).append("\n")
-                                .append("Monto: ").append(compra.getDouble("monto")).append("\n")
-                                .append("Fecha: ").append(compra.getString("fecha")).append("\n")
-                                .append("Responsable: ").append(compra.getString("responsable")).append("\n\n");
+                        Object[] rowData = {
+                            compra.getLong("id"),
+                            compra.getString("descripcion"),
+                            compra.getDouble("monto"),
+                            fechaFormateada,
+                            compra.getString("responsable")
+                        };
 
+                        tableModel.addRow(rowData);
                     }
-
-                    // Muestra el mensaje en un JOptionPane
-                    mostrarMensaje(mensaje.toString(), "Compras", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     mostrarMensaje("No se encontraron compras en la fecha " + formattedDate, "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
-
             } else {
                 mostrarMensaje("Error al cargar compras: " + response.statusCode(), "Error", JOptionPane.ERROR_MESSAGE);
             }

@@ -4,33 +4,38 @@
  */
 package GUI;
 
-import com.mycompany.pizzeria.comandas.Comanda;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.awt.event.KeyEvent;
+
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
+
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 /**
@@ -52,6 +57,10 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
         JTable table = new JTable(tabla);
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
+        
+        
+        setupEnterKeyAction();
+        setupEscapeKeyAction();
     }
     
 
@@ -71,6 +80,28 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
                    volverAtras();
             }
         });
+    }
+    
+    private void setupEnterKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
+        this.getActionMap().put("buscarComandas", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarComandasPorFecha();
+            }
+        });
+     }
+    
+    private void setupEscapeKeyAction() {
+    // Mapa de entradas y acciones para el panel actual
+    this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "volverAtras");
+    this.getActionMap().put("volverAtras", new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            volverAtras();
+        }
+    });
     }
 
     
@@ -116,34 +147,34 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addComponent(atras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Buscar)
-                .addGap(33, 33, 33))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(137, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(112, 112, 112))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(130, 130, 130))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Buscar))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Buscar)
+                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -234,7 +265,13 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
     private void volverAtras() {
         OpcionesComanda volver = new OpcionesComanda(parentFrame);
         parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-        parentFrame.getContentPane().add(volver);  // Añade el nuevo JPanel (OpcionesComanda)
+         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+
+//  fijar el tamaño preferido del panel para evitar que se ajuste
+        volver.setPreferredSize(new Dimension(1300, 800));
+        parentFrame.add(volver, BorderLayout.CENTER);
+        parentFrame.pack();
+        parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla
         parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
         parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
         parentFrame.pack();

@@ -44,8 +44,8 @@ public class Compras {
     public Compras() {
     }
 
-    public Compras( String descripcion, double monto, ResponsableDeCompra responsable) {
-        
+    public Compras( Long id,String descripcion, double monto, ResponsableDeCompra responsable) {
+        this.id=id;
         this.descripcion = descripcion;
         this.monto = monto;
         this.responsable = responsable;
