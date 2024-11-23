@@ -19,9 +19,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  *
@@ -30,7 +33,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Pizzeria {
 
-
     private static String logoControlGastos = "/Imagenes/calculadora.png";
     private static String logoComandas = "/Imagenes/notas.png";
     private static String logoBuscar = "/Imagenes/lupa.png";
@@ -38,6 +40,8 @@ public class Pizzeria {
     private static String logoDescargarDB = "/Imagenes/exportar.png";
     private static String logoInicio = "/Imagenes/casa.png";
     static Color colorBarra = new Color(210, 180, 111);
+    @Autowired
+    private ExportarBaseDeDatos exportarBaseDatos;
 
     public static void main(String[] args) {
         // Crea el directorio para la base de datos si no existe
@@ -46,8 +50,10 @@ public class Pizzeria {
         // Desactiva el modo headless
         System.setProperty("java.awt.headless", "false");
 
+    
         // Inicia la aplicación Spring Boot
-        SpringApplication.run(Pizzeria.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(Pizzeria.class, args);
+        Pizzeria app = context.getBean(Pizzeria.class);
         // Abre la ventana de Principal en un nuevo hilo
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -144,7 +150,7 @@ public class Pizzeria {
                 barraMenu.add(inicio);
                 barraMenu.add(controlGastos);
                 barraMenu.add(comandas);
-                barraMenu.add(exportar);//aun no lo hago
+                barraMenu.add(exportar);
                 barraMenu.add(menuOpciones);
 
                 frame.setJMenuBar(barraMenu);  // Establece la barra de menú en el JFrame
@@ -229,6 +235,14 @@ public class Pizzeria {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         ppal.mostrarOpcionesComandas(); // Llama al método de Principal
+                    }
+                });
+                exportar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String rutaArchivo = "D:/Documents/NetBeansProjects/Pizzeria/data/db/pizzeria.xlsx";
+                        app.exportarBaseDatos.exportarDatos(rutaArchivo);
+                        
                     }
                 });
 

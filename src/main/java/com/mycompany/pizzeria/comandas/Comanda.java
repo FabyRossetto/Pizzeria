@@ -34,7 +34,8 @@ public class Comanda {
     int mesa;
     
     @Column(nullable = false)
-    String mozo;
+    @Enumerated(EnumType.STRING)
+    Mozo mozo;
     
     @Enumerated(EnumType.STRING)
     Estado estado;
@@ -51,17 +52,17 @@ public class Comanda {
         
     }
  // Constructor para creación sin id
-    public Comanda(String pedido, int mesa, String camarero, Estado estado, double precio, String comentario) {
+    public Comanda(String pedido, int mesa, Mozo mozo, Estado estado, double precio, String comentario) {
         this.pedido = pedido;
         this.mesa = mesa;
-        this.mozo = camarero;
+        this.mozo = mozo;
         this.estado = estado;
         this.precioFinal = precio;
         this.comentario = comentario;
     }
     
     //const para edicion
-    public Comanda( Long id,String pedido, int mesa, String mozo, Estado estado, Double precioFinal, String comentario) {
+    public Comanda( Long id,String pedido, int mesa,Mozo mozo, Estado estado, Double precioFinal, String comentario) {
         this.id=id;
         this.pedido = pedido;
         this.mesa = mesa;
@@ -92,7 +93,7 @@ public class Comanda {
         return pedido;
     }
 
-    public String getMozo() {
+    public Mozo getMozo() {
         return mozo;
     }
 
@@ -117,7 +118,7 @@ public class Comanda {
         this.mesa = mesa;
     }
 
-    public void setMozo(String mozo) {
+    public void setMozo(Mozo mozo) {
         this.mozo = mozo;
     }
 

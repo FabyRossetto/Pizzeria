@@ -22,7 +22,5 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long> {
 
     List<Comanda> findByMesa(int mesa);
 
-    @Query("SELECT c FROM Comanda c WHERE LOWER(c.mozo) = LOWER(:mozo)")
-    List<Comanda> findByMozo(@Param("mozo") String mozo);
-
+  
 }

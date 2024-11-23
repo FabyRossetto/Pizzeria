@@ -38,13 +38,13 @@ public class Opciones extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(97, 97, 97));
         setToolTipText("");
-        setPreferredSize(new java.awt.Dimension(1123, 755));
+        setPreferredSize(new java.awt.Dimension(1300, 800));
 
         IngresarCompra.setBackground(new java.awt.Color(210, 180, 111));
-        IngresarCompra.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        IngresarCompra.setForeground(new java.awt.Color(255, 255, 255));
+        IngresarCompra.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        IngresarCompra.setForeground(new java.awt.Color(51, 51, 51));
         IngresarCompra.setText("INGRESAR UNA COMPRA");
-        IngresarCompra.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        IngresarCompra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         IngresarCompra.setFocusPainted(false);
         IngresarCompra.setMaximumSize(new java.awt.Dimension(211, 31));
         IngresarCompra.setMinimumSize(new java.awt.Dimension(211, 31));
@@ -52,34 +52,34 @@ public class Opciones extends javax.swing.JPanel {
         IngresarCompra.setRequestFocusEnabled(false);
 
         IngresarVenta.setBackground(new java.awt.Color(210, 180, 111));
-        IngresarVenta.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        IngresarVenta.setForeground(new java.awt.Color(255, 255, 255));
+        IngresarVenta.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        IngresarVenta.setForeground(new java.awt.Color(51, 51, 51));
         IngresarVenta.setText("INGRESAR UNA VENTA");
-        IngresarVenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        IngresarVenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         IngresarVenta.setFocusPainted(false);
 
         VerCompras.setBackground(new java.awt.Color(210, 180, 111));
-        VerCompras.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        VerCompras.setForeground(new java.awt.Color(255, 255, 255));
+        VerCompras.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        VerCompras.setForeground(new java.awt.Color(51, 51, 51));
         VerCompras.setText("VER TODAS LA COMPRAS");
-        VerCompras.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        VerCompras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         VerCompras.setFocusPainted(false);
         VerCompras.setMaximumSize(new java.awt.Dimension(211, 31));
         VerCompras.setMinimumSize(new java.awt.Dimension(211, 31));
         VerCompras.setPreferredSize(new java.awt.Dimension(211, 31));
 
         VerVentas.setBackground(new java.awt.Color(210, 180, 111));
-        VerVentas.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        VerVentas.setForeground(new java.awt.Color(255, 255, 255));
+        VerVentas.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        VerVentas.setForeground(new java.awt.Color(51, 51, 51));
         VerVentas.setText("VER TODAS LAS VENTAS");
-        VerVentas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        VerVentas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         VerVentas.setFocusPainted(false);
 
         Balance.setBackground(new java.awt.Color(210, 180, 111));
-        Balance.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        Balance.setForeground(new java.awt.Color(255, 255, 255));
+        Balance.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        Balance.setForeground(new java.awt.Color(51, 51, 51));
         Balance.setText("BALANCE DIARIO");
-        Balance.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        Balance.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Balance.setFocusPainted(false);
 
         atras.setBackground(new java.awt.Color(210, 180, 111));
@@ -106,47 +106,46 @@ public class Opciones extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(IngresarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VerCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(157, 157, 157)
-                        .addComponent(Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(IngresarVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VerVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53))
+                        .addComponent(VerVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(atras)
-                        .addGap(91, 91, 91)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(143, 143, 143))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(IngresarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(IngresarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(VerCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(196, 196, 196)
+                                .addComponent(Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(IngresarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IngresarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(VerVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VerCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(91, 91, 91))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(231, 231, 231)))
+                .addGap(129, 129, 129)
+                .addComponent(IngresarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))
+                        .addGap(53, 53, 53)
+                        .addComponent(VerCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(IngresarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)))
+                .addComponent(VerVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(atras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
     }// </editor-fold>//GEN-END:initComponents
 

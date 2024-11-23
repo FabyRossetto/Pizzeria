@@ -70,7 +70,7 @@ public class ComandasControlador {
             if (comandaActualizada.getMesa() != 0) { // Asumimos que mesa tiene un valor 0 si no se actualiza
                 comanda.setMesa(comandaActualizada.getMesa());
             }
-            if (comandaActualizada.getMozo() != null && !comandaActualizada.getMozo().isEmpty()) {
+            if (comandaActualizada.getMozo() != null ) {
                 comanda.setMozo(comandaActualizada.getMozo());
             }
             if (comandaActualizada.getEstado() != null) {
@@ -132,12 +132,21 @@ public class ComandasControlador {
     }
     
     @GetMapping("/mozo")
-    public ResponseEntity<List<Comanda>> buscarPorMozo(@RequestParam String mozo) {
+    public ResponseEntity<List<Comanda>> buscarPorMozo(@RequestParam Mozo mozo) {
 
-         List<Comanda> comandas = cr.findByMozo(mozo);
+        List<Comanda> comandas = cr.findAll(); // Cargar todas las comandas desde el repositorio
+        List<Comanda> filtradas = new ArrayList<>(); // Lista para las comandas filtradas
 
+        // Filtrar las comandas por el mozo pasado por parámetro
+        for (Comanda comanda : comandas) {
+            if (comanda.getMozo().equals(mozo)){
+                filtradas.add(comanda);
+            }
+        }
 
-        return ResponseEntity.ok(comandas);
+        return ResponseEntity.ok(filtradas);
     }
+
+
 
 }

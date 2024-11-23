@@ -105,10 +105,9 @@ public class BuscarComandaPorMozo extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         atras = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
-        nombreMozo = new javax.swing.JTextField();
+        Camarero = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(97, 97, 97));
         setFocusCycleRoot(true);
@@ -127,6 +126,12 @@ public class BuscarComandaPorMozo extends javax.swing.JPanel {
         Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-buscar-32.png"))); // NOI18N
         Buscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        Camarero.setBackground(new java.awt.Color(97, 97, 97));
+        Camarero.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        Camarero.setForeground(new java.awt.Color(255, 255, 255));
+        Camarero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TAMARA", "MIRIAM", "EZEQUIEL", "CAMILA", "MANUELA", "GASTON", "LILI", "OTRO" }));
+        Camarero.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,26 +143,22 @@ public class BuscarComandaPorMozo extends javax.swing.JPanel {
                 .addComponent(Buscar)
                 .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nombreMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(184, 184, 184))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(90, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(Camarero, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(126, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(nombreMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(43, 43, 43)
+                .addComponent(Camarero, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,18 +169,17 @@ public class BuscarComandaPorMozo extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;
+    private javax.swing.JComboBox<String> Camarero;
     private javax.swing.JButton atras;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField nombreMozo;
     // End of variables declaration//GEN-END:variables
  private void buscarComandasPorMozo() {
-        String mozo= nombreMozo.getText();
+        String camareroString = (String) Camarero.getSelectedItem();
 
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:8080/comandas/mozo?mozo=" + mozo))
+                    .uri(new URI("http://localhost:8080/comandas/mozo?mozo=" + camareroString))
                     .header("Accept", "application/json")
                     .GET()
                     .build();
@@ -191,7 +191,7 @@ public class BuscarComandaPorMozo extends javax.swing.JPanel {
 
                 if (contentArray.length() > 0) {
                     // Construye un mensaje con la información de todas las comandas encontradas
-                    StringBuilder mensaje = new StringBuilder("Las comandas de  " + mozo + ":\n\n");
+                    StringBuilder mensaje = new StringBuilder("Las comandas de  " + camareroString + ":\n\n");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
                     for (int i = 0; i < contentArray.length(); i++) {
@@ -214,7 +214,7 @@ public class BuscarComandaPorMozo extends javax.swing.JPanel {
                     // Muestra el mensaje en un JOptionPane
                     mostrarMensaje(mensaje.toString(), "Comandas", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    mostrarMensaje("No se encontraron comandas para " + mozo, "Información", JOptionPane.INFORMATION_MESSAGE);
+                    mostrarMensaje("No se encontraron comandas para " + camareroString, "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             } else {

@@ -5,17 +5,18 @@
 package GUI;
 
 import GUI.ControlDeGastos.Opciones;
+
 import java.awt.BorderLayout;
 
 import java.awt.Desktop;
 import java.awt.Dimension;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.net.URI;
 
 import javax.swing.JFrame;
-
 
 /**
  *
@@ -31,6 +32,7 @@ public class Principal extends javax.swing.JPanel {
         comanda = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
         setMaximumSize(new java.awt.Dimension(1300, 800));
@@ -38,17 +40,17 @@ public class Principal extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1300, 800));
 
         gastos.setBackground(new java.awt.Color(210, 180, 111));
-        gastos.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        gastos.setForeground(new java.awt.Color(255, 255, 255));
+        gastos.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        gastos.setForeground(new java.awt.Color(51, 51, 51));
         gastos.setText("CONTROL DE GASTOS");
-        gastos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        gastos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         gastos.setFocusPainted(false);
 
         comanda.setBackground(new java.awt.Color(210, 180, 111));
-        comanda.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        comanda.setForeground(new java.awt.Color(255, 255, 255));
+        comanda.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        comanda.setForeground(new java.awt.Color(51, 51, 51));
         comanda.setText("COMANDAS");
-        comanda.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        comanda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         comanda.setFocusPainted(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LOGO-modified.2.png"))); // NOI18N
@@ -64,53 +66,59 @@ public class Principal extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(57, 57, 57));
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Version 1.1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(218, 218, 218)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(192, 192, 192))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(238, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(186, 186, 186))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(248, 248, 248))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(265, 265, 265)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)))
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(143, 143, 143)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-                                        
-                                      
-    // Abre el enlace en el navegador predeterminado al hacer clic
-    try {
-        Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/fabyrossetto/"));
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+
+        // Abre el enlace en el navegador predeterminado al hacer clic
+        try {
+            Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/fabyrossetto/"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }//GEN-LAST:event_jLabel3MouseClicked
@@ -120,6 +128,7 @@ public class Principal extends javax.swing.JPanel {
     private javax.swing.JButton comanda;
     private javax.swing.JButton gastos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
  private JFrame parentFrame;
@@ -148,10 +157,9 @@ public class Principal extends javax.swing.JPanel {
         });
     }
 
-    
-
     public void mostrarOpcionesComandas() {
         OpcionesComanda comanda = new OpcionesComanda(parentFrame);
+
         parentFrame.getContentPane().removeAll();
 
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
@@ -170,6 +178,7 @@ public class Principal extends javax.swing.JPanel {
     // Método para mostrar el panel Opciones
     public void mostrarOpciones() {
         Opciones gastos = new Opciones(parentFrame);
+
         parentFrame.getContentPane().removeAll();
 
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana

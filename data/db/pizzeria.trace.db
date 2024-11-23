@@ -1178,3 +1178,9 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: D:/Documents/Net
 2024-11-08 17:31:45 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPRA" not found; SQL statement:
 select * from compra [42102-214]
+2024-11-19 17:14:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PIZZERIA" not found; SQL statement:
+SELECT * FROM pizzeria [42102-214]
+2024-11-19 17:14:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PIZZERIA" not found; SQL statement:
+SELECT * FROM pizzeria [42102-214]
