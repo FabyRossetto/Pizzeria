@@ -36,10 +36,13 @@ public class OpcionesComanda extends javax.swing.JPanel {
         atras = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         buscarButton = new javax.swing.JButton();
+        titulo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
         setToolTipText("");
-        setPreferredSize(new java.awt.Dimension(1300, 800));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         GenerarComanda.setBackground(new java.awt.Color(210, 180, 111));
         GenerarComanda.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -66,7 +69,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
         atras.setFocusPainted(false);
 
         jLabel3.setBackground(new java.awt.Color(57, 57, 57));
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
@@ -88,39 +91,48 @@ public class OpcionesComanda extends javax.swing.JPanel {
             }
         });
 
+        titulo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        titulo.setForeground(new java.awt.Color(255, 255, 255));
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setText("Menu Comanda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
                         .addComponent(atras)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(263, 263, 263)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(151, 151, 151)
-                        .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(174, 174, 174)
-                        .addComponent(buscarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addGap(350, 350, 350)
+                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(332, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(GenerarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(verComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(buscarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(202, 202, 202)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -150,6 +162,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
     private javax.swing.JPopupMenu buscar;
     private javax.swing.JButton buscarButton;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel titulo;
     private javax.swing.JButton verComandas;
     // End of variables declaration//GEN-END:variables
 
@@ -207,7 +220,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        comanda.setPreferredSize(new Dimension(1300, 800));
+        comanda.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(comanda, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null);  // Centra la ventana
@@ -223,19 +236,19 @@ public class OpcionesComanda extends javax.swing.JPanel {
         JMenuItem buscarPorMesa = new JMenuItem("Buscar por Mesa");
         buscarPorMesa.setOpaque(true);
         buscarPorMesa.setBackground(color);
-        buscarPorMesa.setForeground(Color.WHITE);
+        buscarPorMesa.setForeground(Color.BLACK);
         JMenuItem buscarPorEstado = new JMenuItem("Buscar por Estado");
         buscarPorEstado.setOpaque(true);
         buscarPorEstado.setBackground(color);
-        buscarPorEstado.setForeground(Color.WHITE);
+        buscarPorEstado.setForeground(Color.BLACK);
         JMenuItem buscarPorMozo = new JMenuItem("Buscar por Mozo");
         buscarPorMozo.setOpaque(true);
         buscarPorMozo.setBackground(color);
-        buscarPorMozo.setForeground(Color.WHITE);
+        buscarPorMozo.setForeground(Color.BLACK);
         JMenuItem buscarPorFecha = new JMenuItem("Buscar por Fecha");
         buscarPorFecha.setOpaque(true);
         buscarPorFecha.setBackground(color);
-        buscarPorFecha.setForeground(Color.WHITE);
+        buscarPorFecha.setForeground(Color.BLACK);
 
         // Agregar los JMenuItem al JPopupMenu
         buscar.add(buscarPorMesa);
@@ -263,11 +276,11 @@ public class OpcionesComanda extends javax.swing.JPanel {
     parentFrame.setResizable(false);          // Evita que la ventana sea redimensionable
 
     // Configuración explícita del tamaño
-    mesa.setPreferredSize(new Dimension(500, 400)); // Tamaño preferido del panel
+    mesa.setPreferredSize(new Dimension(1000, 600)); // Tamaño preferido del panel
     parentFrame.add(mesa, BorderLayout.CENTER);     // Agrega el panel al JFrame
 
    
-    parentFrame.setSize(500, 400);
+    parentFrame.setSize(1000, 600);
     parentFrame.setLocationRelativeTo(null);        // Centra la ventana en la pantalla
     parentFrame.revalidate();                       // Actualiza el contenedor
     parentFrame.repaint();                          // Redibuja el contenedor
@@ -285,7 +298,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
         estado.setPreferredSize(new Dimension(500, 400));
         parentFrame.add(estado, BorderLayout.CENTER);
         
-        parentFrame.setSize(500, 400);
+        parentFrame.setSize(1000, 600);
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
         parentFrame.repaint();
@@ -298,9 +311,9 @@ public class OpcionesComanda extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        fecha.setPreferredSize(new Dimension(500, 400));
+        fecha.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(fecha, BorderLayout.CENTER);
-        parentFrame.setSize(500, 400);
+        parentFrame.setSize(1000, 600);
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
         parentFrame.repaint();
@@ -313,9 +326,9 @@ public class OpcionesComanda extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        mozo.setPreferredSize(new Dimension(500, 400));
+        mozo.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(mozo, BorderLayout.CENTER);
-       parentFrame.setSize(500, 400);
+       parentFrame.setSize(1000, 600);
         parentFrame.setLocationRelativeTo(null);
         parentFrame.revalidate();
         parentFrame.repaint();
@@ -328,7 +341,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        todas.setPreferredSize(new Dimension(1300, 800));
+        todas.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(todas, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null);
@@ -343,7 +356,7 @@ public class OpcionesComanda extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
         
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        volver.setPreferredSize(new Dimension(1300, 800));
+        volver.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(volver, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla

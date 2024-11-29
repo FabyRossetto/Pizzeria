@@ -8,6 +8,7 @@ package GUI.ControlDeGastos;
 import com.mycompany.pizzeria.controlGastos.Ventas;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,11 +30,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.AbstractAction;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,8 +73,6 @@ public class ListarVentas extends javax.swing.JPanel {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        borrar = new javax.swing.JButton();
-        editar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -75,6 +81,9 @@ public class ListarVentas extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(1000, 600));
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
@@ -113,21 +122,6 @@ public class ListarVentas extends javax.swing.JPanel {
         tabla.setShowGrid(true);
         jScrollPane1.setViewportView(tabla);
 
-        borrar.setBackground(new java.awt.Color(210, 180, 111));
-        borrar.setForeground(new java.awt.Color(255, 255, 255));
-        borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-basura-16.png"))); // NOI18N
-        borrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        borrar.setRequestFocusEnabled(false);
-
-        editar.setBackground(new java.awt.Color(210, 180, 111));
-        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-editar-24.png"))); // NOI18N
-        editar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarActionPerformed(evt);
-            }
-        });
-
         jLabel1.setBackground(new java.awt.Color(97, 97, 97));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,9 +151,14 @@ public class ListarVentas extends javax.swing.JPanel {
         atras.setBackground(new java.awt.Color(210, 180, 111));
         atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-left-50.png"))); // NOI18N
         atras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atrasActionPerformed(evt);
+            }
+        });
 
         jLabel10.setBackground(new java.awt.Color(57, 57, 57));
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
@@ -173,70 +172,53 @@ public class ListarVentas extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(buscar)
-                        .addGap(434, 434, 434))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(editar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(253, 253, 253))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(atras)
-                        .addGap(97, 97, 97)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(334, 334, 334)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(443, 443, 443)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(222, Short.MAX_VALUE))
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(atras)
+                                .addGap(192, 192, 192)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53)
+                                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(buscar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editar)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(299, 299, 299)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buscar)
-                        .addGap(55, 55, 55)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(atras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(buscar))
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
 
-    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editarActionPerformed
+        getAccessibleContext().setAccessibleName("");
+    }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
 
@@ -248,13 +230,15 @@ public class ListarVentas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atrasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atras;
-    private javax.swing.JButton borrar;
     private javax.swing.JButton buscar;
     private com.toedter.calendar.JCalendar calendar;
-    private javax.swing.JButton editar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -271,28 +255,28 @@ public class ListarVentas extends javax.swing.JPanel {
                 atras();
             }
         });
-        borrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                borrarVenta();
-            }
-
-        });
-        editar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                editarVenta();
-            }
-
-        });
-        buscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                buscarVentaPorFecha();
-            }
-        });
-    }
-
+//        borrar.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                borrarVenta();
+//            }
+//
+//        });
+//        editar.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                editarVenta();
+//            }
+//
+//        });
+//        buscar.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                buscarVentaPorFecha();
+//            }
+//        });
+//    }
+ }
     private void setupEnterKeyAction() {
         // Mapa de entradas y acciones para el panel actual
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "buscarComandas");
@@ -317,7 +301,93 @@ public class ListarVentas extends javax.swing.JPanel {
 
     private void configurarTabla() {
         // Asignar el modelo de la tabla existente
-        tableModel = (DefaultTableModel) tabla.getModel();
+        tableModel = new DefaultTableModel(new Object[]{"Numero",  "Monto","Descripcion", "Fecha", "Editar", "Borrar"}, 0) {
+    @Override
+            public boolean isCellEditable(int row, int column) {
+                // Permitir edición solo en las columnas de acción
+                return column >= 4;
+            }
+        };
+        tabla.setModel(tableModel);
+
+        // Configurar renderizador y editor para botones
+        
+        agregarBotonEditar(4, "/Imagenes/icons8-editar-24.png");
+        agregarBotonBorrar(5, "/Imagenes/icons8-basura-16.png");
+    }
+        private void agregarBotonBorrar(int columnIndex, String iconPath) {
+        // Crear un JButton con el ícono
+        JButton boton = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+
+        // Renderizador para mostrar el botón
+        tabla.getColumnModel().getColumn(columnIndex).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                return boton;
+            }
+        });
+
+        // Editor para el botón "Borrar"
+        tabla.getColumnModel().getColumn(columnIndex).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                JButton botonBorrar = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+                botonBorrar.setBorderPainted(false);
+                botonBorrar.setContentAreaFilled(false);
+                botonBorrar.setFocusPainted(false);
+
+                botonBorrar.addActionListener(e -> {
+                    Long idVenta = (Long) table.getValueAt(row, 0); 
+                    int confirm = JOptionPane.showConfirmDialog(parentFrame,
+                            "¿Estás seguro de que deseas borrar la venta numero " + idVenta + "?",
+                            "Confirmar borrado",
+                            JOptionPane.YES_NO_OPTION);
+
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        borrarVenta(idVenta);
+                    }
+                });
+
+                return botonBorrar;
+            }
+        });
+         }
+         
+          private void agregarBotonEditar(int columnIndex, String iconPath) {
+        // Crear un JButton con el ícono
+        JButton boton = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+
+        // Renderizador para mostrar el botón
+        tabla.getColumnModel().getColumn(columnIndex).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                return boton;
+            }
+        });
+// Editor para el botón "Editar"
+        tabla.getColumnModel().getColumn(columnIndex).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                JButton botonEditar = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+                botonEditar.setBorderPainted(false);
+                botonEditar.setContentAreaFilled(false);
+                botonEditar.setFocusPainted(false);
+
+                botonEditar.addActionListener(e -> {
+                    Long idVenta = (Long) table.getValueAt(row, 0); 
+                    // Redirigir al panel de edición
+                    abrirPanelEdicion(idVenta);
+                });
+
+                return botonEditar;
+            }
+        });
     }
 
     // Método para volver a la ventana anterior
@@ -327,7 +397,7 @@ public class ListarVentas extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        volver.setPreferredSize(new Dimension(1300, 800));
+        volver.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(volver, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla
@@ -351,19 +421,27 @@ public class ListarVentas extends javax.swing.JPanel {
 
     //sirve para cargar las comandas por cualquier tipo de filtro
     private void cargarVentasFiltradas(List<Ventas> Filtradas) {
+        // Formateador para las fechas
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm"); 
         tableModel.setRowCount(0);
         for (Ventas venta : Filtradas) {
+            String fechaFormateada = dateFormatter.format(venta.getFecha());
+            
             Object[] rowData = {
                 venta.getId(),
                 venta.getDescripcion(),
                 venta.getMonto(),
-                venta.getFecha(),};
+               fechaFormateada,
+               "Editar",
+               "Borrar"
+               };
             tableModel.addRow(rowData);
         }
     }
 
     private void cargarVentas() {
         String apiUrl = "http://localhost:8080/ventas";
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
         try {
             // Crear conexión HTTP
             HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
@@ -386,12 +464,19 @@ public class ListarVentas extends javax.swing.JPanel {
 
                 // Cargar datos en la tabla
                 for (int i = 0; i < contentArray.length(); i++) {
-                    JSONObject compra = contentArray.getJSONObject(i);
+                    JSONObject venta = contentArray.getJSONObject(i);
+                    
+                     // Parsear y formatear la fecha
+                String fechaRaw = venta.getString("fecha");
+                String fechaFormateada = dateFormatter.format(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(fechaRaw));
+                    
                     Object[] rowData = {
-                        compra.getLong("id"),
-                        compra.getString("descripcion"),
-                        compra.getDouble("monto"),
-                        compra.getString("fecha"),};
+                        venta.getLong("id"),
+                        venta.getString("descripcion"),
+                        venta.getDouble("monto"),
+                        fechaFormateada,
+                    "Editar",
+                    "Borrar"};
                     tableModel.addRow(rowData);
                 }
             } else {
@@ -402,7 +487,9 @@ public class ListarVentas extends javax.swing.JPanel {
             mostrarMensaje("Error al conectar con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (JSONException e) {
             mostrarMensaje("Error al procesar JSON: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+         } catch (ParseException e) {
+        mostrarMensaje("Error al formatear la fecha: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }
 
     private void mostrarMensaje(String mensaje, String titulo, int messageType) {
@@ -414,44 +501,48 @@ public class ListarVentas extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(parentFrame, mensaje, titulo, messageType);
     }
 
-    private void borrarVenta() {
+    private void borrarVenta(Long ventaId) {
         try {
-            BorrarVenta borrada = new BorrarVenta(parentFrame);
-            parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-            parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("http://localhost:8080/ventas/" + ventaId))
+                    .DELETE()
+                    .build();
 
-//  fijar el tamaño preferido del panel para evitar que se ajuste
-            borrada.setPreferredSize(new Dimension(500, 400));
-            parentFrame.add(borrada, BorderLayout.CENTER);
-            parentFrame.setSize(500, 400);
-            parentFrame.setLocationRelativeTo(null);
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
-            parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
-            System.out.println("Pantalla de Borrar Compra");
-        } catch (Exception e) {
-            mostrarMensaje("Error al querer borrar la compra", "Error", JOptionPane.ERROR_MESSAGE);
+            if (response.statusCode() == 200) {
+                mostrarMensaje("La venta fue eliminada con exito","Exito", JOptionPane.INFORMATION_MESSAGE);
+                cargarVentas(); // Refrescar tabla
+            } else {
+                mostrarMensaje("Error al eliminar la venta: " , "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            mostrarMensaje("Error de conexion al servidor " , "Error", JOptionPane.ERROR_MESSAGE);
+             
         }
     }
 
-    private void editarVenta() {
-        try {
-            EditarVenta editar = new EditarVenta(parentFrame);
-            parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-            parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+     private void abrirPanelEdicion(Long idVenta) {
+    try {
 
-//  fijar el tamaño preferido del panel para evitar que se ajuste
-            editar.setPreferredSize(new Dimension(1300, 800));
-            parentFrame.add(editar, BorderLayout.CENTER);
-            parentFrame.pack();
-            parentFrame.setLocationRelativeTo(null);
-            parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
-            parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
-            System.out.println("Pantalla de editar venta");
-        } catch (Exception e) {
-            mostrarMensaje("Error al querer editar la venta", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        EditarVenta editarPanel = new EditarVenta(parentFrame, idVenta);
+        System.out.println(" id venta en listar " + idVenta);
+        // Configuración del panel en el JFrame
+        parentFrame.getContentPane().removeAll();
+        parentFrame.setResizable(false);
+        editarPanel.setPreferredSize(new Dimension(1000, 600));
+        parentFrame.add(editarPanel, BorderLayout.CENTER);
+        parentFrame.pack();
+        parentFrame.setLocationRelativeTo(null);
+        parentFrame.getContentPane().revalidate();
+        parentFrame.getContentPane().repaint();
+    } catch (Exception e) {
+        mostrarMensaje("Error al querer editar la venta", "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
     private void buscarVentaPorFecha() {
         Date selectedDate = calendar.getDate();

@@ -7,6 +7,7 @@ package GUI;
 import com.mycompany.pizzeria.comandas.Comanda;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,14 +18,27 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.AbstractAction;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +50,6 @@ import org.json.JSONObject;
  */
 public class ListarTodasLasComandas extends javax.swing.JPanel {
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -45,14 +58,14 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
-        Borrar = new javax.swing.JButton();
-        Editar = new javax.swing.JButton();
         atras = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        Buscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(1000, 600));
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
@@ -61,21 +74,21 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         Tabla.setForeground(new java.awt.Color(255, 255, 255));
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Numero", "Pedido", "Mesa", "Camarero", "Estado", "Precio", "Comentario", "Fecha"
+                "Numero", "Pedido", "Mesa", "Camarero", "Estado", "Precio", "Comentario", "Fecha", "Buscar", "Editar", "Borrar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true, true
+                false, false, false, false, false, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -90,21 +103,6 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         Tabla.setShowGrid(true);
         jScrollPane1.setViewportView(Tabla);
 
-        Borrar.setBackground(new java.awt.Color(210, 180, 111));
-        Borrar.setForeground(new java.awt.Color(255, 255, 255));
-        Borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-basura-16.png"))); // NOI18N
-        Borrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Borrar.setRequestFocusEnabled(false);
-
-        Editar.setBackground(new java.awt.Color(210, 180, 111));
-        Editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-editar-24.png"))); // NOI18N
-        Editar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarActionPerformed(evt);
-            }
-        });
-
         atras.setBackground(new java.awt.Color(210, 180, 111));
         atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-left-50.png"))); // NOI18N
         atras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -115,12 +113,8 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Listado de comandas");
 
-        Buscar.setBackground(new java.awt.Color(210, 180, 111));
-        Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-buscar-32.png"))); // NOI18N
-        Buscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jLabel3.setBackground(new java.awt.Color(57, 57, 57));
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
@@ -134,55 +128,39 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Editar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(atras)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(213, 213, 213))))
+                        .addGap(303, 303, 303)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(471, 471, 471)
+                .addGap(320, 320, 320)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 370, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(77, 77, 77)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Editar))
-                .addGap(13, 13, 13)
+                .addGap(49, 49, 49)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))))
+                    .addComponent(atras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
         );
-    }// </editor-fold>//GEN-END:initComponents
 
-    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EditarActionPerformed
+        getAccessibleContext().setAccessibleName("");
+    }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 
@@ -196,9 +174,6 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Borrar;
-    private javax.swing.JButton Buscar;
-    private javax.swing.JButton Editar;
     private javax.swing.JTable Tabla;
     private javax.swing.JButton atras;
     private javax.swing.JLabel jLabel2;
@@ -209,6 +184,7 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
   private JFrame parentFrame;
     private DefaultTableModel tableModel;
+    EditarComanda editarPanel = new EditarComanda(parentFrame);
 
     public ListarTodasLasComandas(JFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -227,41 +203,150 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
                 atras();
             }
         });
-        Borrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                borrarComanda();
-            }
-
-        });
-        Editar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                editarComanda();
-            }
-
-        });
-        Buscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                buscarComanda();
-            }
-               });
+      
     }
-     private void setupEscapeKeyAction() {
-    // Mapa de entradas y acciones para el panel actual
-    this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "volverAtras");
-    this.getActionMap().put("volverAtras", new AbstractAction() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            atras();
-        }
-    });
+
+    private void setupEscapeKeyAction() {
+        // Mapa de entradas y acciones para el panel actual
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "volverAtras");
+        this.getActionMap().put("volverAtras", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                atras();
+            }
+        });
     }
 
     private void configurarTabla() {
         // Asignar el modelo de la tabla existente
-        tableModel = (DefaultTableModel) Tabla.getModel();
+        // tableModel = (DefaultTableModel) Tabla.getModel();
+        // Configurar modelo de la tabla con columnas personalizadas
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Pedido", "Mesa", "Mozo", "Estado", "Precio Final", "Comentario", "Fecha Creación", "Buscar", "Editar", "Borrar"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Permitir edición solo en las columnas de acción
+                return column >= 8;
+            }
+        };
+        Tabla.setModel(tableModel);
+
+        // Configurar renderizador y editor para botones
+        agregarBotonBuscar(8, "/Imagenes/icons8-buscar-32.png");
+        agregarBotonEditar(9, "/Imagenes/icons8-editar-24.png");
+        agregarBotonBorrar(10, "/Imagenes/icons8-basura-16.png");
+    }
+
+    private void agregarBotonBuscar(int columnIndex, String iconPath) {
+        // Crear un JButton con el ícono
+        JButton boton = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+
+        // Renderizador para mostrar el botón
+        Tabla.getColumnModel().getColumn(columnIndex).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                return boton;
+            }
+        });
+
+        // Editor para capturar eventos de clic, boton buscar
+        Tabla.getColumnModel().getColumn(columnIndex).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                // Crear una nueva instancia para cada clic y adjuntar el listener
+                JButton botonClickeado = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+                botonClickeado.setBorderPainted(false);
+                botonClickeado.setContentAreaFilled(false);
+                botonClickeado.setFocusPainted(false);
+
+                botonClickeado.addActionListener(e -> {
+                    // Obtener el ID de la fila seleccionada
+                    Long comandaId = (Long) table.getValueAt(row, 0); 
+
+                    // Llamar al método para buscar la comanda
+                    buscarComanda(comandaId);
+                });
+
+                return botonClickeado;
+            }
+        });
+    }
+        
+         private void agregarBotonBorrar(int columnIndex, String iconPath) {
+        // Crear un JButton con el ícono
+        JButton boton = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+
+        // Renderizador para mostrar el botón
+        Tabla.getColumnModel().getColumn(columnIndex).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                return boton;
+            }
+        });
+
+        // Editor para el botón "Borrar"
+        Tabla.getColumnModel().getColumn(columnIndex).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                JButton botonBorrar = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+                botonBorrar.setBorderPainted(false);
+                botonBorrar.setContentAreaFilled(false);
+                botonBorrar.setFocusPainted(false);
+
+                botonBorrar.addActionListener(e -> {
+                    Long idComanda = (Long) table.getValueAt(row, 0); 
+                    int confirm = JOptionPane.showConfirmDialog(parentFrame,
+                            "¿Estás seguro de que deseas borrar la comanda con ID " + idComanda + "?",
+                            "Confirmar borrado",
+                            JOptionPane.YES_NO_OPTION);
+
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        borrarComanda(idComanda);
+                    }
+                });
+
+                return botonBorrar;
+            }
+        });
+         }
+         
+          private void agregarBotonEditar(int columnIndex, String iconPath) {
+        // Crear un JButton con el ícono
+        JButton boton = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+
+        // Renderizador para mostrar el botón
+        Tabla.getColumnModel().getColumn(columnIndex).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                return boton;
+            }
+        });
+// Editor para el botón "Editar"
+        Tabla.getColumnModel().getColumn(columnIndex).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+                JButton botonEditar = new JButton(new ImageIcon(getClass().getResource(iconPath)));
+                botonEditar.setBorderPainted(false);
+                botonEditar.setContentAreaFilled(false);
+                botonEditar.setFocusPainted(false);
+
+                botonEditar.addActionListener(e -> {
+                    Long idComanda = (Long) table.getValueAt(row, 0); 
+                    // Redirigir al panel de edición
+                    abrirPanelEdicion(idComanda);
+                });
+
+                return botonEditar;
+            }
+        });
     }
 
     // Método para volver a la ventana anterior
@@ -272,20 +357,19 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        op.setPreferredSize(new Dimension(1300, 800));
+        op.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(op, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla
         parentFrame.getContentPane().revalidate();
         parentFrame.getContentPane().repaint();
     }
-    
 
     public ListarTodasLasComandas(JFrame parentFrame, List<Comanda> comandasFiltradas) {
         this.parentFrame = parentFrame;
         initComponents();
         configurarTabla();
-        
+
         if (comandasFiltradas == null || comandasFiltradas.isEmpty()) {
             cargarComandas(); // Cargar todas las comandas
         } else {
@@ -296,8 +380,12 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
 
     //sirve para cargar las comandas por cualquier tipo de filtro
     private void cargarComandasFiltradas(List<Comanda> comandasFiltradas) {
+        // Formateador para las fechas
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+
         tableModel.setRowCount(0);
         for (Comanda comanda : comandasFiltradas) {
+            String fechaFormateada = dateFormatter.format(comanda.getFechaCreacion());
             Object[] rowData = {
                 comanda.getId(),
                 comanda.getPedido(),
@@ -306,15 +394,15 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
                 comanda.getEstado(),
                 comanda.getPrecioFinal(),
                 comanda.getComentario(),
-                comanda.getFechaCreacion()
+                fechaFormateada
             };
             tableModel.addRow(rowData);
         }
     }
 
-
     private void cargarComandas() {
         String apiUrl = "http://localhost:8080/comandas";
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
         try {
             // Crear conexión HTTP
             HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
@@ -338,6 +426,11 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
                 // Cargar datos en la tabla
                 for (int i = 0; i < contentArray.length(); i++) {
                     JSONObject comanda = contentArray.getJSONObject(i);
+
+                    // Parsear y formatear la fecha
+                    String fechaRaw = comanda.getString("fechaCreacion");
+                    String fechaFormateada = dateFormatter.format(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(fechaRaw));
+
                     Object[] rowData = {
                         comanda.getLong("id"),
                         comanda.getString("pedido"),
@@ -346,7 +439,10 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
                         comanda.getString("estado"),
                         comanda.getDouble("precioFinal"),
                         comanda.optString("comentario", ""), // En caso de que sea null
-                        comanda.getString("fechaCreacion")
+                        fechaFormateada,
+                        "Buscar",
+                        "Editar",
+                        "Borrar"
                     };
                     tableModel.addRow(rowData);
                 }
@@ -358,6 +454,51 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
             mostrarMensaje("Error al conectar con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (JSONException e) {
             mostrarMensaje("Error al procesar JSON: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (ParseException e) {
+            mostrarMensaje("Error al formatear la fecha: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void buscarComanda(Long comandaId) {
+        // Enviar una solicitud HTTP GET al servidor
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("http://localhost:8080/comandas/" + comandaId))
+                    .header("Accept", "application/json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == HttpURLConnection.HTTP_OK) {
+                JSONObject comanda = new JSONObject(response.body());
+
+                // Construye un mensaje con la información de la comanda encontrada
+                StringBuilder mensaje = new StringBuilder("La comanda buscada es:\n");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+                LocalDateTime fechaCreacion = LocalDateTime.parse(comanda.getString("fechaCreacion"));
+                String fechaFormateada = fechaCreacion.format(formatter);
+
+                mensaje.append("ID: ").append(comanda.getLong("id")).append("\n")
+                        .append("Pedido: ").append(comanda.getString("pedido")).append("\n")
+                        .append("Mesa: ").append(comanda.getInt("mesa")).append("\n")
+                        .append("Mozo: ").append(comanda.getString("mozo")).append("\n")
+                        .append("Estado: ").append(comanda.getString("estado")).append("\n")
+                        .append("Precio Final: $").append(comanda.getDouble("precioFinal")).append("\n")
+                        .append("Comentario: ").append(comanda.optString("comentario", "")).append("\n")
+                        .append("Fecha Creación: ").append(fechaFormateada).append("\n\n");
+
+                // Muestra el mensaje en un JOptionPane
+                mostrarMensaje(mensaje.toString(), "Comanda", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                mostrarMensaje("Error al cargar la comanda: " + response.statusCode(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            mostrarMensaje("Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(" " + e.getMessage());
         }
     }
 
@@ -370,61 +511,47 @@ public class ListarTodasLasComandas extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(parentFrame, mensaje, titulo, messageType);
     }
 
-    private void borrarComanda() {
-        try{
-        BorrarComanda borrada = new BorrarComanda(parentFrame);
-        parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+    private void borrarComanda(Long comandaId) {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("http://localhost:8080/comandas/" + comandaId))
+                    .DELETE()
+                    .build();
 
-//  fijar el tamaño preferido del panel para evitar que se ajuste
-        borrada.setPreferredSize(new Dimension(500, 400));
-        parentFrame.add(borrada, BorderLayout.CENTER);
-        parentFrame.setSize(500, 400);
-        parentFrame.setLocationRelativeTo(null);
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
-        parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
-        System.out.println("Pantalla de Borrar Comanda");
-        } catch (Exception e) {
-            mostrarMensaje("Error al querer borrar la comanda", "Error", JOptionPane.ERROR_MESSAGE);
+            if (response.statusCode() == 200) {
+                mostrarMensaje("La comanda fue eliminada con exito","Exito", JOptionPane.INFORMATION_MESSAGE);
+                cargarComandas(); // Refrescar tabla
+            } else {
+                mostrarMensaje("Error al eliminar la comanda: " + response.statusCode(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            mostrarMensaje("Error de conexion al servidor " , "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }
 
-    private void editarComanda() {
-        try{
-        EditarComanda editar = new EditarComanda(parentFrame);
-        parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-        parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+    private void abrirPanelEdicion(Long idComanda) {
+    try {
+        Comanda comanda =editarPanel.obtenerComandaOriginal(idComanda);
+        EditarComanda editarPanel = new EditarComanda(parentFrame, idComanda, comanda.getPedido(), comanda);
 
-//  fijar el tamaño preferido del panel para evitar que se ajuste
-        editar.setPreferredSize(new Dimension(1300, 800));
-        parentFrame.add(editar, BorderLayout.CENTER);
+        // Configuración del panel en el JFrame
+        parentFrame.getContentPane().removeAll();
+        parentFrame.setResizable(false);
+        editarPanel.setPreferredSize(new Dimension(1000, 600));
+        parentFrame.add(editarPanel, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null);
-        parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
-        parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
-        System.out.println("Pantalla de editar comanda");
-        } catch (Exception e) {
-            mostrarMensaje("Error al querer editar la comanda", "Error", JOptionPane.ERROR_MESSAGE);
+        parentFrame.getContentPane().revalidate();
+        parentFrame.getContentPane().repaint();
+    } catch (Exception e) {
+        mostrarMensaje("Error al querer editar la comanda", "Error", JOptionPane.ERROR_MESSAGE);
     }
-    }
-    
-    private void buscarComanda() {
-        try{
-        BuscarUnaComanda buscar = new BuscarUnaComanda(parentFrame);
-        parentFrame.getContentPane().removeAll();  // Elimina el contenido actual del JFrame
-         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
+}
 
-//  fijar el tamaño preferido del panel para evitar que se ajuste
-        buscar.setPreferredSize(new Dimension(500, 400));
-        parentFrame.add(buscar, BorderLayout.CENTER);
-        parentFrame.setSize(500, 400);
-        parentFrame.setLocationRelativeTo(null);
-        parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
-        parentFrame.getContentPane().repaint();     // Repinta el JFrame para asegurarse de que se vea correctamente
-        System.out.println("Pantalla de buscar comanda");
-        } catch (Exception e) {
-            mostrarMensaje("Error al querer buscar la comanda", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }
+
+
 }

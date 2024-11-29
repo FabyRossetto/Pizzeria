@@ -7,6 +7,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,11 +27,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -117,8 +120,11 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
         atras = new javax.swing.JButton();
         Calendario = new com.toedter.calendar.JCalendar();
         Buscar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
 
         jLabel1.setBackground(new java.awt.Color(97, 97, 97));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -143,40 +149,67 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
         Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-buscar-32.png"))); // NOI18N
         Buscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel10.setBackground(new java.awt.Color(57, 57, 57));
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(atras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Buscar)
-                .addGap(26, 26, 26))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(112, 112, 112))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(130, 130, 130))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(380, 380, 380)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(356, 356, 356)
+                        .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(459, 459, 459)
+                        .addComponent(Buscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(atras)
+                        .addGap(222, 222, 222)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 323, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addGap(86, 86, 86)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(42, 42, 42)
                 .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGap(18, 18, 18)
+                .addComponent(Buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                    .addComponent(atras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+
+        // Abre el enlace en el navegador predeterminado al hacer clic
+        try {
+            Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/fabyrossetto/"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -187,6 +220,7 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
     private com.toedter.calendar.JCalendar jCalendar2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     // End of variables declaration//GEN-END:variables
 
     private void buscarComandasPorFecha() {
@@ -254,12 +288,37 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
     }
 
     private void mostrarMensaje(String mensaje, String titulo, int messageType) {
-        UIManager.put("OptionPane.background", new Color(210, 180, 111));
-        UIManager.put("Panel.background", new Color(97, 97, 97));
-        UIManager.put("OptionPane.messageForeground", new Color(210, 180, 111));
-        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
-        JOptionPane.showMessageDialog(parentFrame, mensaje, titulo, messageType);
-    }
+    // Crear un área de texto para mostrar el mensaje
+    JTextArea textArea = new JTextArea(mensaje);
+    textArea.setFont(new Font("Arial", Font.BOLD, 14)); // Fuente personalizada
+    textArea.setLineWrap(true); // Ajuste automático de línea
+    textArea.setWrapStyleWord(true); // Ajuste de palabras completas
+    textArea.setEditable(false); // Deshabilitar edición
+    textArea.setBackground(new Color(97, 97, 97)); // Fondo del área de texto
+    textArea.setForeground(new Color(210, 180, 111)); // Color del texto
+
+    // Envolver el área de texto en un JScrollPane
+    JScrollPane scrollPane = new JScrollPane(textArea);
+    scrollPane.setPreferredSize(new Dimension(1000, 700)); // Tamaño fijo del área de desplazamiento
+    scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Sin bordes adicionales
+
+    // Estilo de las barras de desplazamiento
+    scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+        @Override
+        protected void configureScrollBarColors() {
+            this.thumbColor = new Color(210, 180, 111); // Color del deslizador
+        }
+    });
+
+    // Aplicar estilos al JOptionPane
+    UIManager.put("OptionPane.background", new Color(210, 180, 111));
+    UIManager.put("Panel.background", new Color(97, 97, 97));
+    UIManager.put("OptionPane.messageForeground", new Color(210, 180, 111));
+    UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
+
+    // Mostrar el JScrollPane dentro de un JOptionPane
+    JOptionPane.showMessageDialog(parentFrame, scrollPane, titulo, messageType);
+}
 
     // Método para volver a la ventana anterior
     private void volverAtras() {
@@ -268,7 +327,7 @@ public class ListarComandasPorFecha extends javax.swing.JPanel {
          parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        volver.setPreferredSize(new Dimension(1300, 800));
+        volver.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(volver, BorderLayout.CENTER);
         parentFrame.pack();
         parentFrame.setLocationRelativeTo(null); // Esto lo centra en la pantalla

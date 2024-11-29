@@ -69,67 +69,67 @@ public class Pizzeria {
                 JMenuItem inicio = new JMenuItem("Inicio", getIcono(logoInicio));
                 inicio.setOpaque(true);
                 inicio.setBackground(colorBarra);
-                inicio.setForeground(Color.WHITE);
+                inicio.setForeground(Color.BLACK);
 
                 //control de gastos
                 JMenuItem controlGastos = new JMenuItem("Control de Gastos", getIcono(logoControlGastos));
                 controlGastos.setOpaque(true);
                 controlGastos.setBackground(colorBarra);
-                controlGastos.setForeground(Color.WHITE);
+                controlGastos.setForeground(Color.BLACK);
 
                 //comandas
                 JMenuItem comandas = new JMenuItem("Comandas", getIcono(logoComandas));
                 comandas.setOpaque(true);
                 comandas.setBackground(colorBarra);
-                comandas.setForeground(Color.WHITE);
+                comandas.setForeground(Color.BLACK);
 
                 //buscar con menu desplegable
                 JMenu menuOpciones = new JMenu("Buscar");
                 menuOpciones.setIcon(getIcono(logoBuscar));
                 menuOpciones.setOpaque(true);
                 menuOpciones.setBackground(colorBarra);
-                menuOpciones.setForeground(Color.WHITE);
+                menuOpciones.setForeground(Color.BLACK);
 
                 //el desplegable 
                 JMenuItem buscarPorFecha = new JMenuItem("Buscar comandas por fecha");
                 buscarPorFecha.setOpaque(true);
                 buscarPorFecha.setBackground(colorBarra);
-                buscarPorFecha.setForeground(Color.WHITE);
+                buscarPorFecha.setForeground(Color.BLACK);
 
                 JMenuItem buscarPorMozo = new JMenuItem("Buscar comandas por mozo");
                 buscarPorMozo.setOpaque(true);
                 buscarPorMozo.setBackground(colorBarra);
-                buscarPorMozo.setForeground(Color.WHITE);
+                buscarPorMozo.setForeground(Color.BLACK);
 
                 JMenuItem buscarPorEstado = new JMenuItem("Buscar comandas por Estado");
                 buscarPorEstado.setOpaque(true);
                 buscarPorEstado.setBackground(colorBarra);
-                buscarPorEstado.setForeground(Color.WHITE);
+                buscarPorEstado.setForeground(Color.BLACK);
 
                 JMenuItem buscarPorMesa = new JMenuItem("Buscar comandas por mesa");
                 buscarPorMesa.setOpaque(true);
                 buscarPorMesa.setBackground(colorBarra);
-                buscarPorMesa.setForeground(Color.WHITE);
+                buscarPorMesa.setForeground(Color.BLACK);
 
                 JMenuItem todasComandas = new JMenuItem("Ver todas las comandas");
                 todasComandas.setOpaque(true);
                 todasComandas.setBackground(colorBarra);
-                todasComandas.setForeground(Color.WHITE);
+                todasComandas.setForeground(Color.BLACK);
 
                 JMenuItem TodasVentas = new JMenuItem("Ver todas las ventas");
                 TodasVentas.setOpaque(true);
                 TodasVentas.setBackground(colorBarra);
-                TodasVentas.setForeground(Color.WHITE);
+                TodasVentas.setForeground(Color.BLACK);
 
                 JMenuItem TodasCompras = new JMenuItem("Ver todas las compras");
                 TodasCompras.setOpaque(true);
                 TodasCompras.setBackground(colorBarra);
-                TodasCompras.setForeground(Color.WHITE);
+                TodasCompras.setForeground(Color.BLACK);
 
                 JMenuItem Balance = new JMenuItem("Balance");
                 Balance.setOpaque(true);
                 Balance.setBackground(colorBarra);
-                Balance.setForeground(Color.WHITE);
+                Balance.setForeground(Color.BLACK);
 
                 menuOpciones.add(buscarPorFecha);
                 menuOpciones.add(buscarPorMozo);
@@ -144,7 +144,7 @@ public class Pizzeria {
                 JMenuItem exportar = new JMenuItem("Exportar BD", getIcono(logoDescargarDB));
                 exportar.setOpaque(true);
                 exportar.setBackground(colorBarra);
-                exportar.setForeground(Color.WHITE);
+                exportar.setForeground(Color.BLACK);
 
                 //agregar el item a la barra
                 barraMenu.add(inicio);
@@ -159,7 +159,7 @@ public class Pizzeria {
                 frame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-                ppal.setPreferredSize(new Dimension(1300, 800));
+                ppal.setPreferredSize(new Dimension(1000, 600));
                 frame.add(ppal, BorderLayout.CENTER);
                 frame.pack();  // Esto ajusta el tamaño del frame según el tamaño preferido del contenido
                 frame.setLocationRelativeTo(null); // Esto lo centra en la pantalla

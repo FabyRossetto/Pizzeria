@@ -13,6 +13,7 @@ import static com.mycompany.pizzeria.comandas.Estado.PEDIDA;
 import static com.mycompany.pizzeria.comandas.Estado.PREPARADA;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -37,6 +39,7 @@ import javax.swing.JOptionPane;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -124,10 +127,14 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         entregada = new javax.swing.JRadioButton();
         finalizada = new javax.swing.JRadioButton();
         anulada = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(97, 97, 97));
         setFocusCycleRoot(true);
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setMaximumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jLabel1.setBackground(new java.awt.Color(97, 97, 97));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -199,69 +206,76 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
             }
         });
 
+        jLabel10.setBackground(new java.awt.Color(57, 57, 57));
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("<html><a href='' style='color: white;'>Hecho por: Faby Rossetto</a></html>");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(atras)
+                .addGap(209, 209, 209)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(316, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(460, 460, 460)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(preparada)
+                    .addComponent(en_proceso)
+                    .addComponent(pedida)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(entregada)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(anulada)
+                            .addComponent(finalizada))))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(331, 331, 331))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(atras)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(preparada)
-                                    .addComponent(pedida))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(84, 84, 84)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(finalizada)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(Buscar)
-                                                .addComponent(entregada))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(93, 93, 93)
-                                        .addComponent(anulada)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(en_proceso)
-                                .addGap(107, 215, Short.MAX_VALUE)))))
-                .addGap(81, 81, 81))
+                        .addComponent(Buscar)
+                        .addGap(304, 304, 304))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(54, 54, 54)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(entregada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pedida)))
+                .addGap(54, 54, 54)
+                .addComponent(pedida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(en_proceso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(preparada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(entregada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(finalizada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(anulada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(en_proceso)
-                    .addComponent(finalizada))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(preparada))
+                        .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(anulada)))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -281,6 +295,16 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_finalizadaActionPerformed
 
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+
+        // Abre el enlace en el navegador predeterminado al hacer clic
+        try {
+            Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/fabyrossetto/"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;
@@ -291,6 +315,7 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
     private javax.swing.JRadioButton entregada;
     private javax.swing.JRadioButton finalizada;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JRadioButton pedida;
     private javax.swing.JRadioButton preparada;
     // End of variables declaration//GEN-END:variables
@@ -375,12 +400,37 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
     }
 
     private void mostrarMensaje(String mensaje, String titulo, int messageType) {
-        UIManager.put("OptionPane.background", new Color(210, 180, 111));
-        UIManager.put("Panel.background", new Color(97, 97, 97));
-        UIManager.put("OptionPane.messageForeground", new Color(210, 180, 111));
-        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
-        JOptionPane.showMessageDialog(parentFrame, mensaje, titulo, messageType);
-    }
+    // Crear un área de texto para mostrar el mensaje
+    JTextArea textArea = new JTextArea(mensaje);
+    textArea.setFont(new Font("Arial", Font.BOLD, 14)); // Fuente personalizada
+    textArea.setLineWrap(true); // Ajuste automático de línea
+    textArea.setWrapStyleWord(true); // Ajuste de palabras completas
+    textArea.setEditable(false); // Deshabilitar edición
+    textArea.setBackground(new Color(97, 97, 97)); // Fondo del área de texto
+    textArea.setForeground(new Color(210, 180, 111)); // Color del texto
+
+    // Envolver el área de texto en un JScrollPane
+    JScrollPane scrollPane = new JScrollPane(textArea);
+    scrollPane.setPreferredSize(new Dimension(1000, 700)); // Tamaño fijo del área de desplazamiento
+    scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Sin bordes adicionales
+
+    // Estilo de las barras de desplazamiento
+    scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+        @Override
+        protected void configureScrollBarColors() {
+            this.thumbColor = new Color(210, 180, 111); // Color del deslizador
+        }
+    });
+
+    // Aplicar estilos al JOptionPane
+    UIManager.put("OptionPane.background", new Color(210, 180, 111));
+    UIManager.put("Panel.background", new Color(97, 97, 97));
+    UIManager.put("OptionPane.messageForeground", new Color(210, 180, 111));
+    UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
+
+    // Mostrar el JScrollPane dentro de un JOptionPane
+    JOptionPane.showMessageDialog(parentFrame, scrollPane, titulo, messageType);
+}
 
     // Método para volver a la ventana anterior
     private void volverAtras() {
@@ -389,7 +439,7 @@ public class BuscarComandaPorEstado extends javax.swing.JPanel {
         parentFrame.setResizable(false);  // Evitar el redimensionamiento de la ventana
 
 //  fijar el tamaño preferido del panel para evitar que se ajuste
-        volver.setPreferredSize(new Dimension(1300, 800));
+        volver.setPreferredSize(new Dimension(1000, 600));
         parentFrame.add(volver, BorderLayout.CENTER);
 
         parentFrame.getContentPane().revalidate();  // Revalida el JFrame para actualizar la UI
